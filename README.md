@@ -1,4 +1,4 @@
 management-courses
 ==================
 
-OpenERP addon to management of courses.
+OpenERP addon to manage courses and training logistics.

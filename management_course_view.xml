@@ -12,6 +12,7 @@
             <field name="end_date"/>
             <field name="hours"/>
             <field name="place"/>
+            <field name="instructor_ids"/>
             <field name="attendee_ids"/>
          </form>
        </field>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data>
+     <record model="ir.ui.view" id="management_course_form_view">
+       <field name="name">management_course_form</field>
+       <field name="model">management.course</field>
+       <field name="type">form</field>
+       <field name="arch" type="xml">
+         <form string="Course Form">
+            <field name="course_name"/>
+            <field name="start_date"/>
+            <field name="end_date"/>
+            <field name="hours"/>
+            <field name="place"/>
+            <field name="attendee_ids"/>
+         </form>
+       </field>
+     </record>
+
+    <record model="ir.ui.view" id="management_course_tree_view">
+     <field name="name">management_course_tree</field>
+     <field name="model">management.course</field>
+     <field name="type">tree</field>
+     <field name="arch" type="xml">
+       <tree string="Course">
+         <field name="course_name"/>
+       </tree>
+     </field>
+    </record>
+  
+    <record model="ir.actions.act_window" id="management_course_action">   
+     <field name="name">course</field>
+     <field name="res_model">management.course</field>
+     <field name="view_type">form</field>
+     <field name="view_mode">tree,form</field>
+    </record>
+   
+    <menuitem id="management_course_menu" name="Management Course"/>
+    <menuitem id="course_data" name="Register" parent="management_course_menu"/>
+    <menuitem id="course_agregar" name="Course" parent="course_data" action="management_course_action"/>
+
+  </data>
+</openerp>

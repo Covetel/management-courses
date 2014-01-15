@@ -63,10 +63,13 @@
           <field name="email" position="after">
             <field name="is_instructor"/>
           </field>
+          <xpath expr="//form[@string='Contact']/sheet/div/h1/field[@name='name']" position="after">
+           <field name="cedula_rif" placeholder="Cedula" style="width: 70%%"/>
+          </xpath>
        </data>
      </field>
    </record>
-     
+   
 
     <record model="ir.ui.view" id="technical_requirement_course_form_view">
       <field name="name">technical.requirement.form</field>

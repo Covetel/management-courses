@@ -12,7 +12,7 @@
             <field name="end_date"/>
             <field name="hours"/>
             <field name="place"/>
-            <field name="instructor_ids"/>
+            <!--<field name="instructor_ids"/>-->
             <field name="attendee_ids"/>
          </form>
        </field>
@@ -29,7 +29,7 @@
      </field>
     </record>
   
-    <record model="ir.actions.act_window" id="management_course_action">   
+    <record model="ir.actions.act_window" id="management_course_action">
      <field name="name">course</field>
      <field name="res_model">management.course</field>
      <field name="view_type">form</field>

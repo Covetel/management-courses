@@ -7,17 +7,38 @@
        <field name="type">form</field>
        <field name="arch" type="xml">
          <form string="Course Form">
-            <field name="course_name"/>
+            <group colspan="2">
+              <field name="course_name"/>
+            </group>
+            <separator colspan="2"/>
             <field name="start_date"/>
+            <separator colspan="2"/>
             <field name="end_date"/>
+            <separator colspan="2"/>
             <field name="hours"/>
+            <separator colspan="2"/>
             <field name="place"/>
-            <!--<field name="instructor_ids"/>-->
-            <field name="attendee_ids"/>
+ 
+            <notebook colspan="4">
+             <page string="Ateendes">
+                <field name="attendee_ids">
+                  <tree>
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                  </tree>
+                </field>
+             </page>
+                
+             <page string="Technical Requirement">
+               <field name="technical_requirement">
+               </field>
+             </page>
+
+            </notebook>
          </form>
        </field>
      </record>
-
+      
     <record model="ir.ui.view" id="management_course_tree_view">
      <field name="name">management_course_tree</field>
      <field name="model">management.course</field>
@@ -28,17 +49,60 @@
        </tree>
      </field>
     </record>
-  
+
+    <record model="ir.ui.view" id="res_partner_instructor_form_view">
+     <field name="name">res.partner.instructor.form</field>
+     <field name="model">res.partner</field>
+     <field name="type">form</field>
+     <field name="inherit_id" ref="base.view_partner_form" />
+     <field name="arch" type="xml">
+       <data>
+          <field name="name" position="after">
+            <field name="cedula_rif" placeholder="Cedula-Rif"/>
+          </field>
+          <field name="email" position="after">
+            <field name="is_instructor"/>
+          </field>
+       </data>
+     </field>
+   </record>
+     
+
+    <record model="ir.ui.view" id="technical_requirement_course_form_view">
+      <field name="name">technical.requirement.form</field>
+      <field name="model">technical.requirement.course</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Form Technical Requirement">
+         <field name="requirement"/>
+        </form>
+      </field>
+    </record>    
+    
+     <record model="ir.ui.view" id="technical_requirement_tree_view">
+      <field name="name">technical.requirement.tree</field>
+      <field name="model">technical.requirement.course</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+       <tree string="Form Technical Requirement">
+         <field name="requirement"/>
+       </tree>
+      </field>
+     </record>
+
     <record model="ir.actions.act_window" id="management_course_action">
      <field name="name">course</field>
      <field name="res_model">management.course</field>
      <field name="view_type">form</field>
      <field name="view_mode">tree,form</field>
     </record>
-   
+    
+    
     <menuitem id="management_course_menu" name="Management Course"/>
     <menuitem id="course_data" name="Register" parent="management_course_menu"/>
     <menuitem id="course_agregar" name="Course" parent="course_data" action="management_course_action"/>
 
   </data>
 </openerp>
+
+

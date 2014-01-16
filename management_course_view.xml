@@ -9,17 +9,19 @@
          <form string="Course Form">
             <group colspan="2">
               <field name="course_name"/>
-            </group>
-            <separator colspan="2"/>
-            <field name="start_date"/>
-            <separator colspan="2"/>
-            <field name="end_date"/>
-            <separator colspan="2"/>
-            <field name="hours"/>
-            <separator colspan="2"/>
-            <field name="place"/>
- 
-            <notebook colspan="4">
+              <separator colspan="2"/>
+             <field name="start_date"/>
+             <separator colspan="2"/>
+             <field name="end_date"/>
+             <separator colspan="2"/>
+             <field name="hours"/>
+             <separator colspan="2"/>
+             <field name="place"/>
+           </group>
+           <group colspan="2">
+             <field name="instructor_ids"/>
+           </group>
+           <notebook colspan="4">
              <page string="Ateendes">
                 <field name="attendee_ids">
                   <tree>
@@ -28,12 +30,10 @@
                   </tree>
                 </field>
              </page>
-                
              <page string="Technical Requirement">
                <field name="technical_requirement">
                </field>
              </page>
-
             </notebook>
          </form>
        </field>
@@ -50,7 +50,7 @@
      </field>
     </record>
 
-    <record model="ir.ui.view" id="res_partner_instructor_form_view">
+    <record model="ir.ui.view" id="res_partner_attendee_form_view">
      <field name="name">res.partner.instructor.form</field>
      <field name="model">res.partner</field>
      <field name="type">form</field>
@@ -60,9 +60,6 @@
           <field name="name" position="after">
             <field name="cedula_rif" placeholder="Cedula-Rif"/>
           </field>
-          <field name="email" position="after">
-            <field name="is_instructor"/>
-          </field>
           <xpath expr="//form[@string='Contact']/sheet/div/h1/field[@name='name']" position="after">
            <field name="cedula_rif" placeholder="Cedula" style="width: 70%%"/>
           </xpath>
@@ -70,6 +67,28 @@
      </field>
    </record>
    
+  <record model="ir.ui.view" id="res_partner_instructor_form_view">
+    <field name="name">res.partner.instructor.form</field> 
+    <field name="model">instructor</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+       <form string="Form Instructor">
+         <field name="name"/>
+       </form>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="res_partner_instructor_tree_view">
+   <field name="name">res.partner.instructor.tree</field> 
+   <field name="model">instructor</field>
+   <field name="type">tree</field>
+    <field name="arch" type="xml">
+      <tree string="Tree Instructor ">
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
+
 
     <record model="ir.ui.view" id="technical_requirement_course_form_view">
       <field name="name">technical.requirement.form</field>
@@ -94,13 +113,12 @@
      </record>
 
     <record model="ir.actions.act_window" id="management_course_action">
-     <field name="name">course</field>
+     <field name="name">Course</field>
      <field name="res_model">management.course</field>
      <field name="view_type">form</field>
      <field name="view_mode">tree,form</field>
     </record>
-    
-    
+  
     <menuitem id="management_course_menu" name="Management Course"/>
     <menuitem id="course_data" name="Register" parent="management_course_menu"/>
     <menuitem id="course_agregar" name="Course" parent="course_data" action="management_course_action"/>

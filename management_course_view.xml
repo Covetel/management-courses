@@ -18,25 +18,17 @@
              <separator colspan="2"/>
              <field name="place"/>
            </group>
-           <group colspan="2">
-             <field name="instructor_ids">
-                <form>
-                  <field name="name"/>
-                  <field name="cedula_rif"/>
-                  <field name="company_id"/>
-                </form>
-             </field>
-           </group>
            <notebook colspan="4">
              <page string="Ateendes">
                 <field name="attendee_ids">
-                 <form>
-                   <field name="parent_id"/>
-                 </form>
-                <tree string="Contacts">
-                  <field name="name"/>
-                </tree>
-
+                  <form>
+                    <!--field name="course_id"/>-->
+                    <field name="name"/>
+                    <field name="cedula_rif"/>
+                  </form>
+                  <tree>
+                    <field name="name"/>
+                  </tree>
                 </field>
              </page>
              <page string="Technical Requirement">
@@ -58,23 +50,6 @@
        </tree>
      </field>
     </record>
-
-    <record model="ir.ui.view" id="res_partner_form_view_2">
-     <field name="name">res.partner.instructor.form</field>
-     <field name="model">res.partner</field>
-     <field name="type">form</field>
-     <field name="inherit_id" ref="base.view_partner_form" />
-     <field name="arch" type="xml">
-       <data>
-          <field name="name" position="after">
-            <field name="cedula_rif" placeholder="Cedula-Rif"/>
-          </field>
-          <xpath expr="//form[@string='Contact']/sheet/div/h1/field[@name='name']" position="after">
-           <field name="cedula_rif" placeholder="Cedula" style="width: 70%%"/>
-          </xpath>
-       </data>
-     </field>
-   </record>
      
 
     <record model="ir.ui.view" id="technical_requirement_course_form_view">

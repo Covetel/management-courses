@@ -11,8 +11,8 @@ class course(osv.osv):
               "start_date" : fields.date("Start Date"),
               "end_date":fields.date("End Date"),
               "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
-              "instructor_ids": fields.one2many("instructor","partner_id","Instructor"),
-              "attendee_ids": fields.one2many("res.partner","partner_id","Attendee"),
+              "instructor_ids": fields.one2many("instructor","course_id","Instructor"),
+              "attendee_ids": fields.one2many("res.partner","course_id","Attendee"),
               "place": fields.char("Place of course",size=256,required=True),
               "technical_requirement" : fields.one2many("technical.requirement.course","requirement_course","Technical Requirement"),
             }
@@ -24,16 +24,21 @@ class partner(osv.osv):
  _inherit = "res.partner"
 
  _columns = {
-              "partner_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
+              "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
               "cedula_rif" : fields.char("Cedula-Rif  ",size=12,required=True),
             } 
 partner()
+
+class partner_attendee(osv.osv):
+ _name = "attendee"
+ _description = "Course Instructor"
+ _inherit = "res.partner"
+partner_attendee()
 
 class partner_instructor(osv.osv):
  _name = "instructor"
  _description = "Course Instructor"
  _inherit = "res.partner"
- _table = ""
 partner_instructor()
 
 class technical_requirement_course(osv.osv):

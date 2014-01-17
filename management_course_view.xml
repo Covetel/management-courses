@@ -19,15 +19,53 @@
              <field name="place"/>
            </group>
            <group colspan="2">
-             <field name="instructor_ids"/>
+             <field name="instructor_ids">
+                <form>
+                  <field name="name"/>
+                  <field name="cedula_rif"/>
+                </form>
+             </field>
            </group>
            <notebook colspan="4">
              <page string="Ateendes">
                 <field name="attendee_ids">
-                  <tree>
+                   <form string="Contact" version="7.0">
+                    <field name="image" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name"/> (
+                            <field name="is_company" on_change="onchange_type(is_company)" class="oe_inline"/> <label for="is_company" string="Is a Company?"/>)
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Name" />
+                        </h1>
+                         <field name="cedula_rif" placeholder=""/>
+                        <field name="parent_id"
+                            placeholder="Company"
+                            domain="[('is_company', '=', True)]" context="{'default_is_company': True}"
+                            attrs="{'invisible': [('is_company','=', True)]}"/>
+                        <group>
+                            <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
+                            <field name="function" placeholder="e.g. Sales Director"/>
+                            <field name="email" required="context.get('force_email', False)"/>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                        </group>
+                    </div>
+                </form>
+
+                <tree string="Contacts">
                     <field name="name"/>
-                    <field name="parent_id"/>
-                  </tree>
+                    <field name="function" invisible="1"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="country" invisible="1"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                </tree>
+
                 </field>
              </page>
              <page string="Technical Requirement">
@@ -50,7 +88,7 @@
      </field>
     </record>
 
-    <record model="ir.ui.view" id="res_partner_attendee_form_view">
+    <record model="ir.ui.view" id="res_partner_form_view_2">
      <field name="name">res.partner.instructor.form</field>
      <field name="model">res.partner</field>
      <field name="type">form</field>
@@ -66,29 +104,7 @@
        </data>
      </field>
    </record>
-   
-  <record model="ir.ui.view" id="res_partner_instructor_form_view">
-    <field name="name">res.partner.instructor.form</field> 
-    <field name="model">instructor</field>
-    <field name="type">form</field>
-    <field name="arch" type="xml">
-       <form string="Form Instructor">
-         <field name="name"/>
-       </form>
-    </field>
-  </record>
-
-  <record model="ir.ui.view" id="res_partner_instructor_tree_view">
-   <field name="name">res.partner.instructor.tree</field> 
-   <field name="model">instructor</field>
-   <field name="type">tree</field>
-    <field name="arch" type="xml">
-      <tree string="Tree Instructor ">
-        <field name="name"/>
-      </tree>
-    </field>
-  </record>
-
+     
 
     <record model="ir.ui.view" id="technical_requirement_course_form_view">
       <field name="name">technical.requirement.form</field>
@@ -118,7 +134,7 @@
      <field name="view_type">form</field>
      <field name="view_mode">tree,form</field>
     </record>
-  
+
     <menuitem id="management_course_menu" name="Management Course"/>
     <menuitem id="course_data" name="Register" parent="management_course_menu"/>
     <menuitem id="course_agregar" name="Course" parent="course_data" action="management_course_action"/>

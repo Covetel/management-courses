@@ -9,8 +9,23 @@ class course(osv.osv):
  _description = "Course"
  
  def get_certificates(self, cr, uid, ids, context=None):
-  _logger.info("Hola mundo")
-  return True
+  this = self.browse(cr, uid, ids)[0]
+  _logger.info("%s" % this.name)
+  for participant in this.participant_ids:
+   _logger.info("%s" % participant.name)
+
+  self.write(cr, uid, ids, {'state' : 'get',
+                            'certificate_pdf' : out}, context=context)
+
+  return {
+   'type': 'ir.actions.act_window',
+   'res_model': 'management.course',
+   'view_mode': 'form',
+   'view_type': 'form',
+   'res_id': this.id ,
+   'views': [(False, 'form')],
+   'target': 'new',
+  }
 
  _columns = {
               "name" : fields.char("Course Name",size=256,required=True),
@@ -21,8 +36,18 @@ class course(osv.osv):
               "place": fields.char("Place of course",size=256,required=True),
               "technical_requirement" : fields.one2many("technical.requirement.course","requirement_course","Technical Requirement"),
               "certificate_pdf" : fields.binary("File", readonly=True),
-  
+              "state" : fields.selection([('choose', 'choose'),
+                                          ('get', 'get')], )
             }
+
+ _defaults = {
+  'state' : 'choose',
+ }
+
+ def restart_state(self, cr, uid, ids, context=None):
+  self.write(cr, uid, ids, {'state' : 'choose'}, context=context)
+  return True
+
 course()
 
 

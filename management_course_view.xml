@@ -24,8 +24,8 @@
              <field name="place"/>
            </group>
            <notebook colspan="4">
-             <page string="Ateendes">
-                <field name="attendee_ids">
+             <page string="Participants">
+                <field name="participant_ids">
                   <form>
                     <!--field name="course_id"/>-->
                     <field name="name"/>
@@ -88,9 +88,9 @@
      <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="management_course_menu" name="Management Course"/>
+    <menuitem id="management_course_menu" name="Management Courses"/>
     <menuitem id="course_data" name="Register" parent="management_course_menu"/>
-    <menuitem id="course_agregar" name="Course" parent="course_data" action="management_course_action"/>
+    <menuitem id="course_agregar" name="Courses" parent="course_data" action="management_course_action"/>
 
   </data>
 </openerp>

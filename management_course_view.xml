@@ -6,8 +6,12 @@
        <field name="model">management.course</field>
        <field name="type">form</field>
        <field name="arch" type="xml">
-         <form string="Course Form">
-
+         <form version="7.0" string="Course Form">
+           <header>
+             <button class="oe_highlight" string="Generate Certificates"
+                     name="get_certificates" type="object" />
+           </header>
+           <sheet>
             <group colspan="2">
               <field name="name"/>
               <separator colspan="2"/>
@@ -37,8 +41,8 @@
                </field>
              </page>
             </notebook>
-           <button class="oe_highlight" string="Generate Certificates"
-                   name="get_certificates" type="object" />
+
+           </sheet>
          </form>
        </field>
        </record>

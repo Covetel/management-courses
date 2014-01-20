@@ -7,11 +7,18 @@
        <field name="type">form</field>
        <field name="arch" type="xml">
          <form version="7.0" string="Course Form">
-           <header>
+           <field invisible="1" name="state" />
+           <div states="get">
+             <h2>Export Complete</h2>
+             <p>Here is the exported certificates file: <field
+             name="certificate_pdf" readonly="1" fielname="name"
+             /></p>
+           </div>
+           <header states="choose">
              <button class="oe_highlight" string="Generate Certificates"
                      name="get_certificates" type="object" />
            </header>
-           <sheet>
+           <sheet states="choose">
             <group colspan="2" col="2">
               <field name="name"/>
               <separator colspan="2"/>
@@ -44,14 +51,17 @@
                </field>
              </page>
             </notebook>
-
            </sheet>
+           <footer states="get">
+             <button class="oe_highlight" string="Close" type="object"
+                     name="restart_state" />  
+           </footer>
          </form>
        </field>
        </record>
-      
+
     <record model="ir.ui.view" id="management_course_tree_view">
-     <field name="name">management_course_tree</field>
+    <field name="name">management_course_tree</field>
      <field name="model">management.course</field>
      <field name="type">tree</field>
      <field name="arch" type="xml">

@@ -19,7 +19,7 @@
                      name="get_certificates" type="object" />
            </header>
            <sheet states="choose">
-            <group colspan="2">
+            <group colspan="2" col="2">
               <field name="name"/>
               <separator colspan="2"/>
              <field name="start_date"/>
@@ -37,9 +37,12 @@
                     <!--field name="course_id"/>-->
                     <field name="name"/>
                     <field name="cedula_rif"/>
+                    <field name="is_instructor"/>
                   </form>
                   <tree>
+                    <field name="cedula_rif"/>
                     <field name="name"/>
+                    <field name="is_instructor"/>
                   </tree>
                 </field>
              </page>

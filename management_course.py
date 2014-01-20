@@ -31,14 +31,14 @@ class partner_participant(osv.osv):
 	_description = "Course Instructor"
 	_table = "participant"
     
-	_sql_constraints = [('cedula_rif_uniq','unique(cedula_rif)','!La cedula debe ser unica!')]
+	_sql_constraints = [('cedula_rif','unique(cedula_rif)','!La cedula debe ser unica!')]
+
 	_columns = {
 	           "name" : fields.many2one("res.partner", "name", "Instructor"),
 	           "cedula_rif" : fields.char("Cedula-Rif",size=12),
 	           "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
+               "is_instructor" : fields.boolean("Instructor"),
 	           }
-	
-	#_sql_constraints = [('cedula_rif_uniq','unique(cedula_rif)','!La cedula debe ser unica!')]
 	
 partner_participant()
 

@@ -13,7 +13,7 @@ class course(osv.osv):
   return True
 
  _columns = {
-              "course_name" : fields.char("Course Name",size=256,required=True),
+              "name" : fields.char("Course Name",size=256,required=True),
               "start_date" : fields.date("Start Date"),
               "end_date":fields.date("End Date"),
               "hours" : fields.float("Hours",digits=(6,2),help="Duration"),

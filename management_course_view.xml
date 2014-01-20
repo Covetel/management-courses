@@ -7,6 +7,7 @@
        <field name="type">form</field>
        <field name="arch" type="xml">
          <form string="Course Form">
+
             <group colspan="2">
               <field name="course_name"/>
               <separator colspan="2"/>
@@ -36,6 +37,8 @@
                </field>
              </page>
             </notebook>
+           <button class="oe_highlight" string="Generate Certificates"
+                   name="get_certificates" type="object" />
          </form>
        </field>
      </record>

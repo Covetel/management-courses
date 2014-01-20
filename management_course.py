@@ -1,11 +1,17 @@
-
+import logging
 from osv import osv, fields
 import time
+
+_logger = logging.getLogger(__name__)
 
 class course(osv.osv):
  _name = "management.course"
  _description = "Course"
  
+ def get_certificates(self, cr, uid, ids, context=None):
+  _logger.info("Hola mundo")
+  return True
+
  _columns = {
               "course_name" : fields.char("Course Name",size=256,required=True),
               "start_date" : fields.date("Start Date"),
@@ -14,6 +20,8 @@ class course(osv.osv):
               "attendee_ids": fields.one2many("attendee","course_id","Attendee"),
               "place": fields.char("Place of course",size=256,required=True),
               "technical_requirement" : fields.one2many("technical.requirement.course","requirement_course","Technical Requirement"),
+              "certificate_pdf" : fields.binary("File", readonly=True),
+  
             }
 course()
 

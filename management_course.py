@@ -23,6 +23,11 @@ class course(osv.osv):
             "technical_requirement" : fields.one2many("technical.requirement.course","requirement_course","Technical Requirement"),
             "certificate_pdf" : fields.binary("File", readonly=True),
     }
+
+   _defaults = {
+                   "start_date" : lambda *a: time.strftime('%Y-%m-%d'),
+                   "end_date" :  lambda *a: time.strftime('%Y-%m-%d'),
+                 }
 course()
 
 
@@ -39,7 +44,6 @@ class partner_participant(osv.osv):
 	           "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
                "is_instructor" : fields.boolean("Instructor"),
 	           }
-	
 partner_participant()
 
 

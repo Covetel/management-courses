@@ -35,6 +35,7 @@ class course(osv.osv):
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
         "participant_ids": fields.one2many("participant","course_id","Participant"),
+        "company_ids": fields.many2one("res.partner","name","Company"),
         "place": fields.char("Place of course",size=256,required=True),
         "technical_requirement" : fields.one2many("technical.requirement.course","requirement_course","Technical Requirement"),
         "certificate_pdf" : fields.binary("File", readonly=True),
@@ -104,8 +105,17 @@ class technical_requirement_course(osv.osv):
     _description = "Technical Requirement Course"
     _table = "technical_requirement_course" 
     _columns = {
-        "requirement" : fields.char("Requirement",size=256,required=True),
+
+        "name" : fields.many2one("requirement","name","Requirement Course"),
         "requirement_course": fields.many2one("management.course","Requirement Course",required=True,ondelete="cascade"),
     }
 technical_requirement_course()
 
+class requirement(osv.osv):
+    _name = "requirement"
+    _description = "Requirement"
+
+    _columns = {
+                 "name" : fields.char("Requirement",size=256,required=True),
+               }
+requirement()

@@ -79,13 +79,13 @@ class partner_participant(osv.osv):
     def check_length_cedula(self,cr,uid,ids,context=None):
         participants=self.browse(cr,uid,ids,context=context)
         for participant in participants:
-            if len(participant.cedula_rif[2:]) > 8:
+            if len(participant.cedula_rif[2:]) > 8 or len(participant.cedula_rif[2:]) < 8:
                 return False
         return True
 
     _constraints = [(check_cedula,"Cedula incorrecta, debe contener V- o E- al inicio",['cedula_rif']),
                     (check_cedula_rif_numeros,"La cedula no puede contener mas letras",['cedula_rif']),
-                    (check_length_cedula,"La cedula no puede ser mayor a 8 numeros",['cedula_rif'])
+                    (check_length_cedula,"La cedula debe contener 8 digitos",['cedula_rif'])
                    ]
 
     _sql_constraints = [('cedula_rif','unique(cedula_rif)','!La cedula debe ser unica!')]

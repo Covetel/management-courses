@@ -15,7 +15,7 @@
 
     [% FOREACH c IN certificados %]
         \thispagestyle{empty}
-        \includegraphics[scale=0.8]{static/images/covetel}
+        \includegraphics[scale=0.8]{/home/xyklex/OpenERP-Modules/management-courses/covetel}
 		\vspace{1cm}
         \begin{center}
     
@@ -33,7 +33,7 @@
 
         \vspace{1cm}
 
-        {\fontsize{20}{30}\bfseries [% c.id_persona.nombre %] [% c.id_persona.apellido %] }\\
+        {\fontsize{20}{30}\bfseries [% c.id_persona.nombre %] }\\
         \vspace{0.5cm}
         {con cédula de identidad V-[% c.id_persona.cedula %]}
 
@@ -43,23 +43,22 @@
 
         \vspace{0.3cm}
 
-        {\fontsize{20}{20}\bfseries\emph [% c.id_curso.nombre %]}
+        {\fontsize{20}{20}\bfseries\emph [% c.nombre_curso %]}
 
         \vspace{0.3cm}
     
         
         celebrado del [% c.desde %] al [% c.hasta %] \\
-        con duración de 40 horas.\\ 
+        con duración de [% c.duracion %] horas.\\ 
 
         \vspace{1cm}
 
-        Caracas 1  de Diciembre del 2013
+        \today
         
         \vspace{2.5cm}
 
         -------------------------------------------\\
-        {\bfseries Carlos Maldonado}\\
-        Coordinador Instancia de Educación\\
+        {\bfseries [% c.instructor %]}\\
         Cooperativa Venezolana de Tecnologías Libres R.S.
         
         \end{center}

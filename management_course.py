@@ -35,6 +35,7 @@ class course(osv.osv):
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
         "participant_ids": fields.one2many("participant","course_id","Participant"),
+        "company_ids": fields.many2one("res.partner","name","Company"),
         "place": fields.char("Place of course",size=256,required=True),
         "technical_requirement" : fields.one2many("technical.requirement.course","requirement_course","Technical Requirement"),
         "certificate_pdf" : fields.binary("File", readonly=True),
@@ -59,6 +60,33 @@ class partner_participant(osv.osv):
     _name = "participant"
     _description = "Course Instructor"
     _table = "participant"
+    
+    def check_cedula(self,cr,uid,ids,context=None):
+        participants=self.browse(cr,uid,ids,context=context)
+        for participant in participants:
+            if participant.cedula_rif.find("V-")!=-1 or participant.cedula_rif.find("E-")!=-1:
+               return True
+        return False
+
+    def check_cedula_rif_numeros(self,cr,uid,ids,context=None):
+        participants=self.browse(cr,uid,ids,context=context)
+        for participant in participants:
+            for caracter in participant.cedula_rif[2:]:
+               if caracter.isalpha():
+                    return False
+            return True
+
+    def check_length_cedula(self,cr,uid,ids,context=None):
+        participants=self.browse(cr,uid,ids,context=context)
+        for participant in participants:
+            if len(participant.cedula_rif[2:]) > 8:
+                return False
+        return True
+
+    _constraints = [(check_cedula,"Cedula incorrecta, debe contener V- o E- al inicio",['cedula_rif']),
+                    (check_cedula_rif_numeros,"La cedula no puede contener mas letras",['cedula_rif']),
+                    (check_length_cedula,"La cedula no puede ser mayor a 8 numeros",['cedula_rif'])
+                   ]
 
     _sql_constraints = [('cedula_rif','unique(cedula_rif)','!La cedula debe ser unica!')]
 
@@ -77,8 +105,17 @@ class technical_requirement_course(osv.osv):
     _description = "Technical Requirement Course"
     _table = "technical_requirement_course" 
     _columns = {
-        "requirement" : fields.char("Requirement",size=256,required=True),
+
+        "name" : fields.many2one("requirement","name","Requirement Course"),
         "requirement_course": fields.many2one("management.course","Requirement Course",required=True,ondelete="cascade"),
     }
 technical_requirement_course()
 
+class requirement(osv.osv):
+    _name = "requirement"
+    _description = "Requirement"
+
+    _columns = {
+                 "name" : fields.char("Requirement",size=256,required=True),
+               }
+requirement()

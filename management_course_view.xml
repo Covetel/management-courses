@@ -29,6 +29,8 @@
              <field name="hours"/>
              <separator colspan="2"/>
              <field name="place"/>
+             <separator colspan="2"/>
+             <field name="company_ids" string="Company"/>
            </group>
            <notebook colspan="4">
              <page string="Participants">
@@ -67,6 +69,7 @@
      <field name="arch" type="xml">
        <tree string="Course">
          <field name="name"/>
+         <field name="company_ids" string="Company"/>
        </tree>
      </field>
     </record>
@@ -78,7 +81,7 @@
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Form Technical Requirement">
-         <field name="requirement"/>
+         <field name="name" string="Requirement"/>
         </form>
       </field>
     </record>    
@@ -89,7 +92,7 @@
       <field name="type">tree</field>
       <field name="arch" type="xml">
        <tree string="Form Technical Requirement">
-         <field name="requirement"/>
+         <field name="name" string="Requirement"/>
        </tree>
       </field>
      </record>

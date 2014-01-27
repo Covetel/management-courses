@@ -15,7 +15,7 @@
 
     [% FOREACH c IN certificados %]
         \thispagestyle{empty}
-        \includegraphics[scale=0.8]{/home/xyklex/OpenERP-Modules/management-courses/covetel}
+        \includegraphics[scale=0.8]{/home/xyklex/OpenERP-Modules/management-courses/static/images/covetel}
 		\vspace{1cm}
         \begin{center}
     
@@ -35,7 +35,7 @@
 
         {\fontsize{20}{30}\bfseries [% c.id_persona.nombre %] }\\
         \vspace{0.5cm}
-        {con cédula de identidad V-[% c.id_persona.cedula %]}
+        {con cédula de identidad [% c.id_persona.cedula %]}
 
         \vspace{1cm}
 

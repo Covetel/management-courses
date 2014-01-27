@@ -2,23 +2,45 @@ import logging
 from osv import osv, fields
 import time
 import base64
+from openerp import modules, tools
+import subprocess
 
 _logger = logging.getLogger(__name__)
 
 class course(osv.osv):
     _name = "management.course"
     _description = "Course"
-    _table = "management_course" 
+    _table = "management_course"
     
     def get_certificates(self, cr, uid, ids, context=None):
         this = self.browse(cr, uid, ids)[0]
-        _logger.info("%s" % this.name)
+        path_module = modules.get_module_path('management-courses')
+        file = open(path_module + "/course_data.txt", "w")
+
         for participant in this.participant_ids:
-            _logger.info("%s" % participant.name)
-        out = base64.encodestring("Hola mundo")
+            file.write("%s,%s,%s,%s,%s,%s:%s\n" % (this.name,
+                                                 this.start_date,
+                                                 this.end_date,
+                                                 this.hours,
+                                                 "Instructor",
+                                                 participant.name.name,
+                                                 participant.cedula_rif))
+        file.close()
+
+        command = "perl " + path_module + "/generarcertificados.pl"
+#        process = subprocess.Popen("perl", path_module + "/generarcertificados.pl")
+
+        file = open(path_module + 
+                    "/" + 
+                    this.name + 
+                    ".pdf", "rb")
+        
+        fileContent = file.read()
+        out = base64.encodestring(fileContent)
+
         self.write(cr, uid, ids, {'state' : 'get',
                                  'certificate_pdf' : out}, context=context)
-
+        file.close()
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'management.course',

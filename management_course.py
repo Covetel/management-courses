@@ -83,14 +83,12 @@ class partner_participant(osv.osv):
     _description = "Course Instructor"
     _table = "participant"
     
-    def check_cedula(self,cr,uid,ids,context=None):
-        participants=self.browse(cr,uid,ids,context=context)
-        for participant in participants:
-            if participant.cedula_rif.find("V-")!=-1 or participant.cedula_rif.find("E-")!=-1:
-               return True
+    def _check_cedula(self,cr,uid,ids,cedula_rif,context=None):
+        if cedula_rif.find("V-")!=-1 or cedula_rif.find("E-")!=-1:
+            return True
         return False
 
-    def check_cedula_rif_numeros(self,cr,uid,ids,context=None):
+    def _check_cedula_rif_numeros(self,cr,uid,ids,context=None):
         participants=self.browse(cr,uid,ids,context=context)
         for participant in participants:
             for caracter in participant.cedula_rif[2:]:
@@ -98,23 +96,24 @@ class partner_participant(osv.osv):
                     return False
             return True
 
-    def check_length_cedula(self,cr,uid,ids,context=None):
+    def _check_length_cedula(self,cr,uid,ids,context=None):
         participants=self.browse(cr,uid,ids,context=context)
         for participant in participants:
             if len(participant.cedula_rif[2:]) > 8 or len(participant.cedula_rif[2:]) < 8:
                 return False
         return True
+    
+    def onchange_cedula(self,cr, uid,ids,cedula_rif,context=None):
+        if cedula_rif != False:
+            if self._check_cedula(cr,uid,ids,cedula_rif,context)==False:
+                return {'value':{'cedula_rif':''},'warning':{'title':'warning','message':'Cedula Invalida        '}}
+        else:
+             return {'value':{'cedula_rif':''},'warning':{'title':'warning','message':'Cedula Invalidaaaa          '}}
 
-    _constraints = [(check_cedula,"Cedula incorrecta, debe contener V- o E- al inicio",['cedula_rif']),
-                    (check_cedula_rif_numeros,"La cedula no puede contener mas letras",['cedula_rif']),
-                    (check_length_cedula,"La cedula debe contener 8 digitos",['cedula_rif'])
-                   ]
-
-    _sql_constraints = [('cedula_rif','unique(cedula_rif)','!La cedula debe ser unica!')]
 
     _columns = {
         "name" : fields.many2one("res.partner", "name", "Instructor"),
-        "cedula_rif" : fields.char("Cedula-Rif",size=12),
+        "cedula_rif" : fields.char("Cedula-Rif",size=12,required=True),
         "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
         "is_instructor" : fields.boolean("Instructor"),
     }

@@ -38,7 +38,7 @@
                   <form>
                     <!--field name="course_id"/>-->
                     <field name="name"/>
-                    <field name="cedula_rif"/>
+                    <field name="cedula_rif" context="{'cedula_rif': active_id}"  on_change="onchange_cedula(cedula_rif,context)"/>
                     <field name="is_instructor"/>
                   </form>
                   <tree>

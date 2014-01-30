@@ -106,10 +106,11 @@ class partner_participant(osv.osv):
     def onchange_cedula(self,cr, uid,ids,cedula_rif,context=None):
         if cedula_rif != False:
             if self._check_cedula(cr,uid,ids,cedula_rif,context)==False:
-                return {'value':{'cedula_rif':''},'warning':{'title':'warning','message':'Cedula Invalida        '}}
+                return {'value':{'cedula_rif':''},'warning':{'title':'warning','message':'Cedula Invalida debe contener V- o E-'}}
         else:
-             return {'value':{'cedula_rif':''},'warning':{'title':'warning','message':'Cedula Invalidaaaa          '}}
-
+             return {'value':{'cedula_rif':''}}
+        
+        return  {'warning':{'title':'warning','message':'Cedula agregada'}}
 
     _columns = {
         "name" : fields.many2one("res.partner", "name", "Instructor"),

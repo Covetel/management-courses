@@ -86,7 +86,8 @@ class partner_participant(osv.osv):
     def _check_cedula(self,cr,uid,ids,cedula_rif,context=None):
         if cedula_rif.find("V-")!=-1 or cedula_rif.find("E-")!=-1:
             return True
-        return False
+        else:
+            return False
 
     def _check_cedula_rif_numeros(self,cr,uid,ids,context=None):
         participants=self.browse(cr,uid,ids,context=context)
@@ -105,10 +106,12 @@ class partner_participant(osv.osv):
     
     def onchange_cedula(self,cr, uid,ids,cedula_rif,context=None):
         if cedula_rif != False:
-            if self._check_cedula(cr,uid,ids,cedula_rif,context)==False:
-                return {'value':{'cedula_rif':''},'warning':{'title':'warning','message':'Cedula Invalida        '}}
+            if self._check_cedula(cr,uid,ids,cedula_rif,context) == False:
+                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida'}}
+            else:
+                return {'value' : {'cedula_rif' : cedula_rif}}
         else:
-             return {'value':{'cedula_rif':''},'warning':{'title':'warning','message':'Cedula Invalidaaaa          '}}
+            return {'value': {'cedula_rif' : ''},'warning':{'title' : 'warning', 'message' : 'Campo cédula vacio'}}
 
 
     _columns = {

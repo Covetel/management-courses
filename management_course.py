@@ -111,7 +111,7 @@ class partner_participant(osv.osv):
             else:
                 return {'value' : {'cedula_rif' : cedula_rif}}
         else:
-            return {'value': {'cedula_rif' : ''},'warning':{'title' : 'warning', 'message' : 'Campo cédula vacio'}}
+            return {'value': {'cedula_rif' : ''},'warning':{'title' : 'warning', 'message' : 'Campo cedula vacio'}}
 
 
     _columns = {

@@ -83,31 +83,32 @@ class partner_participant(osv.osv):
     _description = "Course Instructor"
     _table = "participant"
     
-    def _check_cedula(self,cr,uid,ids,cedula_rif,context=None):
+    def _check_inicio_cedula(self,cr,uid,ids,cedula_rif,context=None):
         if cedula_rif.find("V-")!=-1 or cedula_rif.find("E-")!=-1:
             return True
         else:
             return False
 
-    def _check_cedula_rif_numeros(self,cr,uid,ids,context=None):
-        participants=self.browse(cr,uid,ids,context=context)
-        for participant in participants:
-            for caracter in participant.cedula_rif[2:]:
-               if caracter.isalpha():
-                    return False
+    def _check_cedula_rif_numeros(self,cr,uid,ids,cedula_rif,context=None):
+        if cedula_rif[2:].isdigit():
             return True
+        return False
+        
 
-    def _check_length_cedula(self,cr,uid,ids,context=None):
-        participants=self.browse(cr,uid,ids,context=context)
-        for participant in participants:
-            if len(participant.cedula_rif[2:]) > 8 or len(participant.cedula_rif[2:]) < 8:
-                return False
+    def _check_length_cedula(self,cr,uid,ids,cedula_rif,context=None):
+        if len(cedula_rif[2:]) > 8 or len(cedula_rif[2:]) < 8:
+            return False
         return True
     
-    def onchange_cedula(self,cr, uid,ids,cedula_rif,context=None):
-        if cedula_rif != False
-            if self._check_cedula(cr,uid,ids,cedula_rif,context) == False:
-                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida'}}
+    def onchange_cedula(self,cr,uid,ids,cedula_rif,context=None):
+        if cedula_rif != False:
+
+            if self._check_inicio_cedula(cr,uid,ids,cedula_rif,context) == False:
+                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida debe ontener V- O E- al inicio'}}
+            if self._check_cedula_rif_numeros(cr,uid,ids,cedula_rif,context) == False:
+                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida no puede contener mas letras'}}
+            if self._check_length_cedula(cr,uid,ids,cedula_rif,context) == False:
+                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida debe contener 8 digitos'}}
             else:
                 return {'value' : {'cedula_rif' : cedula_rif}}
         else:

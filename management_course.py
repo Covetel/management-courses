@@ -4,6 +4,7 @@ import time
 import base64
 from openerp import modules, tools
 import subprocess
+import pprint
 
 _logger = logging.getLogger(__name__)
 
@@ -16,13 +17,17 @@ class course(osv.osv):
         this = self.browse(cr, uid, ids)[0]
         path_module = modules.get_module_path('management-courses')
         file = open(path_module + "/course_data.txt", "w")
+        
+        instructor_id = self.pool.get("participant").search(cr, uid, [("is_instructor", "=", True)])
+
+        instructor = self.pool.get("participant").browse(cr, uid, instructor_id[0])
 
         for participant in this.participant_ids:
             file.write("%s,%s,%s,%s,%s,%s:%s\n" % (this.name,
                                                  this.start_date,
                                                  this.end_date,
                                                  this.hours,
-                                                 "Instructor",
+                                                 instructor.name.name,
                                                  participant.name.name,
                                                  participant.cedula_rif))
         file.close()

@@ -28,7 +28,7 @@ class course(osv.osv):
         file.close()
 
         command = "perl " + path_module + "/generarcertificados.pl"
-#        process = subprocess.Popen("perl", path_module + "/generarcertificados.pl")
+        process = subprocess.call(["perl", path_module + "/generarcertificados.pl"])
 
         file = open(path_module + 
                     "/" + 

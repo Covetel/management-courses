@@ -35,5 +35,5 @@ my $vars = {
 
 my $tt = Template::Latex->new;
 
-$tt->process('template.tt2', $vars, "$nombre_curso.pdf", binmode => 1)
+$tt->process('template.tt2', $vars, "#module_path#$nombre_curso.pdf", binmode => 1)
 || die $tt->error();

@@ -5,7 +5,9 @@ import base64
 from openerp import modules, tools
 import subprocess
 import pprint
-
+import codecs
+import time 
+import re
 _logger = logging.getLogger(__name__)
 
 class course(osv.osv):
@@ -16,20 +18,23 @@ class course(osv.osv):
     def get_certificates(self, cr, uid, ids, context=None):
         this = self.browse(cr, uid, ids)[0]
         path_module = modules.get_module_path('management-courses')
-        file = open(path_module + "/course_data.txt", "w")
+        file = codecs.open(path_module + "/course_data.txt", "w")
         
-        instructor_id = self.pool.get("participant").search(cr, uid, [("is_instructor", "=", True)])
-
-        instructor = self.pool.get("participant").browse(cr, uid, instructor_id[0])
+        instructor_id = self.browse(cr,uid,ids)
+        for i in instructor_id[0].participant_ids:
+            if i.is_instructor == True:
+                instructor = i.name.name
 
         for participant in this.participant_ids:
-            file.write("%s,%s,%s,%s,%s,%s:%s\n" % (this.name,
-                                                 this.start_date,
-                                                 this.end_date,
-                                                 this.hours,
-                                                 instructor.name.name,
-                                                 participant.name.name,
-                                                 participant.cedula_rif))
+            if participant.is_instructor == False:
+                data = "%s,%s,%s,%s,%s,%s:%s\n" % (this.name,
+                                                       time.strftime("%d/%m/%y", time.strptime(this.start_date, "%Y-%m-%d")),
+                                 time.strftime("%d/%m/%y", time.strptime(this.end_date, "%Y-%m-%d")),
+                                                       this.hours,
+                                                       instructor,
+                                                       participant.name.name,
+                                                       participant.cedula_rif)
+                file.write(data.encode('utf-8'))
         file.close()
 
         command = "perl " + path_module + "/generarcertificados.pl"
@@ -93,25 +98,17 @@ class partner_participant(osv.osv):
             return True
         else:
             return False
-
-    def _check_cedula_rif_numeros(self,cr,uid,ids,cedula_rif,context=None):
-        if cedula_rif[2:].isdigit():
-            return True
-        return False
         
-
     def _check_length_cedula(self,cr,uid,ids,cedula_rif,context=None):
-        if len(cedula_rif[2:]) > 8 or len(cedula_rif[2:]) < 8:
+        if len(cedula_rif[2:]) > 8:
             return False
         return True
     
     def onchange_cedula(self,cr,uid,ids,cedula_rif,context=None):
         if cedula_rif != False:
-
+            cedula_rif = cedula_rif[:2] + re.sub("[^0-9]", "", cedula_rif[2:])
             if self._check_inicio_cedula(cr,uid,ids,cedula_rif,context) == False:
                 return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida debe ontener V- O E- al inicio'}}
-            if self._check_cedula_rif_numeros(cr,uid,ids,cedula_rif,context) == False:
-                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida no puede contener mas letras'}}
             if self._check_length_cedula(cr,uid,ids,cedula_rif,context) == False:
                 return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida debe contener 8 digitos'}}
             else:

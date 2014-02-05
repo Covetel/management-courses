@@ -21,7 +21,7 @@
            </div>
            <header states="choose">
              <button class="oe_highlight" string="Generate Certificates"
-                     name="%(report_certificates_print)d" type="action" />
+                     name="get_certificates" type="object" />
            </header>
            <sheet states="choose">
             <group colspan="2" col="2">

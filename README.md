@@ -1,6 +1,18 @@
 management-courses
 ==================
 
+Description
+-----------
+
+OpenERP module allowing you to manage your courses, technical requirements, participants, instructor, etc.
+
+Module Features:
+
++ Create a courses.
++ Management participants and instructors to the course.
++ Management course start/end date and duration of the course.
++ Management technical requirements for the course.
+
 Install
 -------
 

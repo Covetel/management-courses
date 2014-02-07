@@ -9,5 +9,5 @@
             "management_course_view.xml"
         ],
         "installable": True,
-        "active": True,
+        "active": False,
 }

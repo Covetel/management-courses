@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <document filename="preview_report.pdf">
-    <template showBoundary="1" 
-              title="Certificados"
+    <template title="Certificados"
               author="Covetel R.S"
               pageSize="(8.5in, 11in)"
               leftMargin="3cm" 
@@ -23,14 +22,47 @@
 
     <stylesheet>
       <paraStyle name="textstyle1" fontName="Helvetica" fontSize="9" leading="10" />
-      <paraStyle name="cooperativeName" fontName="Helvetiva" fontSize="14" alignment="center"/>
-      <paraStyle name="textContent" fontName="Helvetica" fontSize="9" />
+      <paraStyle name="cooperativeName" fontName="DejaVu Sans" fontSize="16" alignment="center"/>
+      <paraStyle name="textContent" fontName="Helvetica" fontSize="10"
+                 alignment="center" />
+      <paraStyle name="nameInfo" fontName="Helvetica-Bold" fontSize="25" alignment="center"/>
     </stylesheet>
 
     <story>
       <para>[[ repeatIn(objects, 'o') ]]</para>
-      <para style="cooperativeName">Cooperativa Venezolana de Tecnologías Libres R.S</para>
-      <para style=""> </para>
-      <para style="textContent">con cédula de identidad [[ o.hours ]]</para>
-    </story>
+      <section>
+        <para>[[ repeatIn(o.participant_ids, 'participant') ]]</para>
+        <para style="cooperativeName">Cooperativa Venezolana de Tecnologías Libres R.S</para>
+        <spacer length="30"/>
+        <para style="textContent">otorga la presente</para>
+        <spacer length="10"/>     
+        <para style="nameInfo">CONSTANCIA DE PARTICIPACIÓN</para>
+        <spacer length="40"/>     
+        <para style="textContent">A</para>
+        <spacer length="25"/>
+
+        <para style="nameInfo">[[ participant.name.name ]]</para>
+        <spacer length="25"/>
+        <para style="textContent">con cédula de identidad [[ participant.cedula_rif ]]</para>
+
+        <spacer length="25"/>     
+        <para style="textContent">por su valiosa participación y acreditación en el curso</para>
+        <spacer length="5"/>     
+        <para style="nameInfo">[[ o.name ]]</para>
+        <spacer length="26"/>     
+        <para style="textContent">celebrado del [[ o.start_date ]] al [[ o.end_date ]]</para>
+        <spacer length="5"/>     
+        <para style="textContent">con duración de [[ o.hours ]] horas</para>
+        <spacer length="20"/>     
+        <para style="textContent">[[ time.strftime("%d %B del %Y") ]]</para>
+        <spacer length="120"/>     
+        <illustration width="150" height="25" align="center">
+          <rect x="5.3cm" y="0" width="150" height="1" fill="1" stroke="yes" />
+        </illustration>
+        <para style="textContent" fontName="DejaVu Sans-Bold">[[ o.instructor ]]</para>
+        <spacer length="4"/>     
+        <para style="textContent">Cooperativa Venezolana de Tecnologías Libres</para>
+        <nextPage />
+    </section>
+  </story>
 </document>

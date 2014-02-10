@@ -3,7 +3,7 @@
    <data>
 
     <report id="report_certificates_print" model="management.course" 
-        name="management.course" rml="/vagrant/OpenERP-Modules/management-courses/report/report_certificates.rml" 
+        name="management.course" rml="/home/xyklex/OpenERP-Modules/management-courses/report/report_certificates.rml" 
         string="Certificados" usage="default" auto="False" />
 
      <record model="ir.ui.view" id="management_course_form_view">

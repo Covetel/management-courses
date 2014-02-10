@@ -9,5 +9,5 @@ class certificates(report_sxw.rml_parse):
         })
 
 report_sxw.report_sxw('report.management.course', 'management.course', 
-                      '/home/xyklexeOpenERP-Modules/management-courses/report/report_certificates.rml', 
+                      '/vagrant/OpenERP-Modules/management-courses/report/report_certificates.rml', 
                       parser=certificates)

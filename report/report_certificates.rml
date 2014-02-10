@@ -1,12 +1,36 @@
 <?xml version="1.0"?>
 <document filename="preview_report.pdf">
-    <template title="Preview Report" author="OpenERP S.A.(sales@openerp.com)" allowSplitting="20">
-        <pageTemplate id="first">
-            <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    <template showBoundary="1" 
+              title="Certificados"
+              author="Covetel R.S"
+              pageSize="(8.5in, 11in)"
+              leftMargin="3cm" 
+              rightMargin="2cm"
+              topMargin="2cm"
+              bottomMargin="2cm" 
+              firstPageTemplate="main">
+
+        <pageTemplate id="main">
+          <pageGraphics>
+            <image x="3cm" y="23.54cm" width="230"
+                   preserveAspectRatio="yes">[[ company.logo ]]</image>
+          </pageGraphics>
+          <frame id="first" x1="3cm" y1="2cm" width="16.59cm"
+                 height="20.50cm" />
+
         </pageTemplate>
     </template>
+
+    <stylesheet>
+      <paraStyle name="textstyle1" fontName="Helvetica" fontSize="9" leading="10" />
+      <paraStyle name="cooperativeName" fontName="Helvetiva" fontSize="14" alignment="center"/>
+      <paraStyle name="textContent" fontName="Helvetica" fontSize="9" />
+    </stylesheet>
+
     <story>
-        <para>
-        </para>
+      <para>[[ repeatIn(objects, 'o') ]]</para>
+      <para style="cooperativeName">Cooperativa Venezolana de Tecnologías Libres R.S</para>
+      <para style=""> </para>
+      <para style="textContent">con cédula de identidad [[ o.hours ]]</para>
     </story>
 </document>

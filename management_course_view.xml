@@ -3,7 +3,7 @@
    <data>
 
     <report id="report_certificates_print" model="management.course" 
-        name="management.course" rml="/home/xyklex/OpenERP-Modules/management-courses/report/report_certificates.rml" 
+        name="management.course" rml="/vagrant/OpenERP-Modules/management-courses/report/report_certificates.rml" 
         string="Certificados" usage="default" auto="False" />
 
      <record model="ir.ui.view" id="management_course_form_view">
@@ -21,7 +21,7 @@
            </div>
            <header states="choose">
              <button class="oe_highlight" string="Generate Certificates"
-                     name="get_certificates" type="object" />
+                     name="%(report_certificates_print)d" type="action" />
            </header>
            <sheet states="choose">
             <group colspan="2" col="2">

@@ -3,7 +3,7 @@
     <data noupdate="0">
 		<record id="base.group_mc" model="res.groups">
 			<field name="name">Management Course / Manager</field>
-            <field name="category_id" ref="base.module_category_management_course"/>
+                        <!--<field name="category_id" ref="base.module_category_management_course"/>-->
 		</record>
     </data>
 

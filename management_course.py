@@ -12,8 +12,7 @@ _logger = logging.getLogger(__name__)
 
 class course(osv.osv):
     _name = "management.course"
-    _description = "managemenet.course"
-    _table = "management_course"
+    _description = "Managemenet Course"
     
     def get_certificates(self, cr, uid, ids, context=None):
         this = self.browse(cr, uid, ids)[0]

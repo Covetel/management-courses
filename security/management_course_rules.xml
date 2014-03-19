@@ -4,9 +4,23 @@
 		<record id="res_group_mcm" model="res.groups">
 			<field name="name">Management Course / Manager</field>
 		</record>
-		<record id="res_group_mcu" model="res.groups">
-			<field name="name">Management Course / user</field>
-		</record>
+
+        <record model="res.users" id="base.user_root">
+            <field eval="[(4,ref('res_group_mcm'))]" name="groups_id"/>
+        </record>
+
+        <record model='ir.ui.menu' id='management_course_menu'>
+            <field name="groups_id" eval="[(4,ref('res_group_mcm'))]"/>
+        </record>
+
+        <record model='ir.ui.menu' id='course_data'>
+            <field name="groups_id" eval="[(4,ref('res_group_mcm'))]"/>
+        </record>
+        
+        <record model='ir.ui.menu' id='course_agregar'>
+            <field name="groups_id" eval="[(4,ref('res_group_mcm'))]"/>
+        </record>
+
     </data>
 
     <data noupdate="0">
@@ -16,26 +30,37 @@
 			<field name="name">Create Course</field>
 			<field eval="0" name="global"/>
 			<field eval="[(6,0,[ref('res_group_mcm')])]" name="groups"/>
+			<field eval="1" name="active"/>
 			<field eval="1" name="perm_unlink"/>
 			<field eval="1" name="perm_write"/>
 			<field eval="1" name="perm_read"/>
 			<field eval="1" name="perm_create"/>
 		</record>
-    </data>
-
-    <data noupdate="0">
-		<record id="ir_rule_mc_user" model="ir.model.access">
-			<field name="model_id" ref="model_management_course"/>
+        
+        <record id="ir_rule_mc_participant_manager" model="ir.rule">
+			<field name="model_id" ref="model_participant"/>
             <field name="domain_force">[('user_id','=',user.id)]</field>
-            <!--<field name="group_id" ref="base.group_mc"/>-->
-            <field name="name">Read Course</field>
+			<field name="name">Management Course Create Participant</field>
 			<field eval="0" name="global"/>
-			<field eval="[(6,0,[ref('res_group_mcu')])]" name="groups"/>
+			<field eval="[(6,0,[ref('res_group_mcm')])]" name="groups"/>
 			<field eval="1" name="active"/>
-			<field eval="0" name="perm_unlink"/>
-			<field eval="0" name="perm_write"/>
+			<field eval="1" name="perm_unlink"/>
+			<field eval="1" name="perm_write"/>
 			<field eval="1" name="perm_read"/>
-			<field eval="0" name="perm_create"/>
+			<field eval="1" name="perm_create"/>
+		</record>
+
+		<record id="ir_rule_mc_tech_req_manager" model="ir.rule">
+			<field name="model_id" ref="model_technical_requirement_course"/>
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+			<field name="name">Management Course Create Technical Requimiment</field>
+			<field eval="0" name="global"/>
+			<field eval="[(6,0,[ref('res_group_mcm')])]" name="groups"/>
+			<field eval="1" name="active"/>
+			<field eval="1" name="perm_unlink"/>
+			<field eval="1" name="perm_write"/>
+			<field eval="1" name="perm_read"/>
+			<field eval="1" name="perm_create"/>
 		</record>
     </data>
 </openerp>

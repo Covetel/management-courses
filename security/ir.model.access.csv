@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_management_course_manager,management_course manager,model_management_course,res_group_mcm,1,1,1,1
-access_management_course_participant_manager,participant manager,model_management_course_participant,res_group_mcm,1,1,1,1
-access_management_course_openerp_manager,technical.requirement.course manager,model_management_course_openerp,res_group_mcm,1,1,1,1

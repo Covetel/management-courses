@@ -7,7 +7,6 @@
         "description": "OpenERP module allowing you to manage your courses, technical requirements, participants, instructors, etc.",
         "data": [
             "security/management_course_rules.xml",
-            "security/ir.model.access.csv",
             "management_course_view.xml",
         ],
         "installable": True,

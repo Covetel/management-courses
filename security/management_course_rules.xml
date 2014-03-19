@@ -9,6 +9,10 @@
             <field eval="[(4,ref('management_course_manager'))]" name="groups_id"/>
         </record>
 
+        <record model="res.groups" id="base.group_system">
+            <field name="implied_ids" eval="[(4, ref('management_course_manager'))]"/>
+        </record>
+
         <record model='ir.ui.menu' id='management_course_menu'>
             <field name="groups_id" eval="[(4,ref('management_course_manager'))]"/>
         </record>

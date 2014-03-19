@@ -76,4 +76,46 @@
 			<field eval="1" name="perm_create"/>
 		</record>
     </data>
+
+    <data noupdate="0">
+        <record id="ir_access_mc_m" model="ir.model.access">
+            <field name="model_id" ref="model_management_course"/>
+            <field name="group_id" ref="management_course_manager"/>
+            <field name="name">management.course manager</field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record id="ir_access_mc_participant_m" model="ir.model.access">
+            <field name="model_id" ref="model_management_course_participant"/>
+            <field name="group_id" ref="management_course_manager"/>
+            <field name="name">management.course.participant manager</field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record id="ir_access_mc_requirement_m" model="ir.model.access">
+            <field name="model_id" ref="model_management_course_requirement"/>
+            <field name="group_id" ref="management_course_manager"/>
+            <field name="name">management.course.requirement manager</field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+
+        <record id="ir_access_mc_tecreq_m" model="ir.model.access">
+            <field name="model_id" ref="model_management_course_tecreq"/>
+            <field name="group_id" ref="management_course_manager"/>
+            <field name="name">management.course.teqrec manager</field>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="1" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="1" name="perm_create"/>
+        </record>
+    </data>
 </openerp>

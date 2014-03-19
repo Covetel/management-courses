@@ -48,7 +48,7 @@
 			<field eval="1" name="perm_create"/>
 		</record>
 
-		<record id="ir_rule_mc_tech_req_manager" model="ir.rule">
+		<record id="ir_rule_mc_req_manager" model="ir.rule">
 			<field name="model_id" ref="model_management_course_requirement"/>
 			<field name="name">Management Course Create Requirement</field>
 			<field eval="0" name="global"/>

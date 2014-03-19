@@ -78,29 +78,80 @@
        </tree>
      </field>
     </record>
-     
 
-    <record model="ir.ui.view" id="technical_requirement_course_form_view">
-      <field name="name">technical.requirement.form</field>
-      <field name="model">technical.requirement.course</field>
+
+    <record model="ir.ui.view" id="management_course_tecreq_form_view">
+      <field name="name">management.course.tecreq.form</field>
+      <field name="model">management.course.tecreq</field>
       <field name="type">form</field>
       <field name="arch" type="xml">
         <form string="Form Technical Requirement">
          <field name="name" string="Requirement"/>
         </form>
       </field>
-    </record>    
-    
-     <record model="ir.ui.view" id="technical_requirement_tree_view">
-      <field name="name">technical.requirement.tree</field>
-      <field name="model">technical.requirement.course</field>
+    </record>
+
+     <record model="ir.ui.view" id="management_course_tecreq_tree_view">
+      <field name="name">management.course.tecreq.tree</field>
+      <field name="model">management.course.tecreq</field>
       <field name="type">tree</field>
       <field name="arch" type="xml">
-       <tree string="Form Technical Requirement">
+       <tree string="Tree Technical Requirement">
          <field name="name" string="Requirement"/>
+         <field name="requirement_course" string="Course"/>
        </tree>
       </field>
      </record>
+
+    <record model="ir.ui.view" id="management_course_requirement_form_view">
+      <field name="name">management.course.requirement.form</field>
+      <field name="model">management.course.requirement</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Form Requirement">
+         <field name="name" string="Requirement"/>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="management_course_requirement_tree_view">
+      <field name="name">management.course.requirement.tree</field>
+      <field name="model">management.course.requirement</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Tree Requirement">
+         <field name="name" string="Requirement"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="management_course_participant_form_view">
+      <field name="name">management.course.participant.form</field>
+      <field name="model">management.course.participant</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Participant Form">
+         <field name="name" string="Nombre"/>
+         <field name="cedula_rif" string="Cedula/Rif"/>
+         <field name="course_id" string="Curso"/>
+         <field name="is_instructor" string="Instructor"/>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="management_course_participant_tree_view">
+      <field name="name">management.course.participant.tree</field>
+      <field name="model">management.course.participant</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+        <tree string="Participants">
+         <field name="name" string="Nombre"/>
+         <field name="cedula_rif" string="Cedula/Rif"/>
+         <field name="course_id" string="Curso"/>
+         <field name="is_instructor" string="Instructor"/>
+        </tree>
+      </field>
+    </record>
 
     <record model="ir.actions.act_window" id="management_course_action">
      <field name="name">Course</field>
@@ -109,9 +160,34 @@
      <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="management_course_menu" name="Management Courses"/>
-    <menuitem id="course_data" name="Register" parent="management_course_menu"/>
-    <menuitem id="course_agregar" name="Courses" parent="course_data" action="management_course_action"/>
+    <record model="ir.actions.act_window" id="management_course_requirement_action">
+     <field name="name">Course Requirements</field>
+     <field name="res_model">management.course.requirement</field>
+     <field name="view_type">form</field>
+     <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="management_course_tecreq_action">
+     <field name="name">Course Technical Requirements</field>
+     <field name="res_model">management.course.tecreq</field>
+     <field name="view_type">form</field>
+     <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="management_course_participant_action">
+     <field name="name">Course Participants</field>
+     <field name="res_model">management.course.participant</field>
+     <field name="view_type">form</field>
+     <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="management_course_menu" name="Management Courses" groups="management_course_manager" action="management_course_action"/>
+    <menuitem id="management_course_reg" name="Register" parent="management_course_menu"/>
+    <menuitem id="management_course_add" name="Courses" parent="management_course_reg" action="management_course_action"/>
+    <menuitem id="management_course_add_req" name="Requirements" parent="management_course_reg" action="management_course_requirement_action"/>
+    <menuitem id="management_course_conf" name="Course Data" parent="management_course_menu"/>
+    <menuitem id="management_course_add_participant" name="Participants" parent="management_course_conf" action="management_course_participant_action"/>
+    <menuitem id="management_course_add_tecreq" name="Technical Requirements" parent="management_course_conf" action="management_course_tecreq_action"/>
 
   </data>
 </openerp>

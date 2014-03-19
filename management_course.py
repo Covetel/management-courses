@@ -65,10 +65,10 @@ class course(osv.osv):
         "start_date" : fields.date("Start Date"),
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
-        "participant_ids": fields.one2many("participant","course_id","Participant"),
+        "participant_ids": fields.one2many("management.course.participant","course_id","Participant"),
         "company_ids": fields.many2one("res.partner","name","Company"),
         "place": fields.char("Place of course",size=256,required=True),
-        "technical_requirement" : fields.one2many("technical.requirement.course","requirement_course","Technical Requirement"),
+        "technical_requirement" : fields.one2many("management.course.tecreq","requirement_course","Technical Requirement"),
         "certificate_pdf" : fields.binary("File", readonly=True),
         "state" : fields.selection([('choose', 'choose'),
                                     ('get', 'get')])
@@ -86,11 +86,9 @@ class course(osv.osv):
         
 course()
 
-
 class partner_participant(osv.osv):
-    _name = "participant"
+    _name = "management.course.participant"
     _description = "Course Instructor"
-    _table = "participant"
     
     def _check_inicio_cedula(self,cr,uid,ids,cedula_rif,context=None):
         if cedula_rif.find("V-")!=-1 or cedula_rif.find("E-")!=-1:
@@ -127,21 +125,21 @@ partner_participant()
 
 
 class technical_requirement_course(osv.osv):
-    _name = "technical.requirement.course"
+    _name = "management.course.tecreq"
     _description = "Technical Requirement Course"
-    _table = "technical_requirement_course" 
+
     _columns = {
 
-        "name" : fields.many2one("requirement","name","Requirement Course"),
+        "name" : fields.many2one("management.course.requirement","name","Requirement Course"),
         "requirement_course": fields.many2one("management.course","Requirement Course",required=True,ondelete="cascade"),
     }
 technical_requirement_course()
 
 class requirement(osv.osv):
-    _name = "requirement"
-    _description = "Requirement"
+    _name = "management.course.requirement"
+    _description = "Courses Requirements"
 
     _columns = {
                  "name" : fields.char("Requirement",size=256,required=True),
-               }
+    }
 requirement()

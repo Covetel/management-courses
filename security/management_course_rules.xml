@@ -3,28 +3,26 @@
     <data noupdate="0">
 		<record id="management_course_manager" model="res.groups">
 			<field name="name">Management Course / Manager</field>
-		</record>
-
-        <record model="res.users" id="base.user_root">
-            <field eval="[(4,ref('management_course_manager'))]" name="groups_id"/>
-        </record>
-
-        <record model="res.groups" id="base.group_system">
-            <field name="implied_ids" eval="[(4, ref('management_course_manager'))]"/>
-        </record>
+			<field name="implied_ids" eval="[(4, ref('management_course_manager'))]"/>
+          	<field name="users" eval="[(4, ref('base.user_root'))]"/>		
+		</record>		
+			
+		<record id="management_course_user" model="res.groups">
+        	<field name="name">Management Course / User</field>
+        	<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    	</record>
 
         <record model='ir.ui.menu' id='management_course_menu'>
-            <field name="groups_id" eval="[(4,ref('management_course_manager'))]"/>
+            <field name="groups_id"	 eval="[(6,0, [ref('management_course_manager'), ref('management_course_user')])]"/>
         </record>
 
         <record model='ir.ui.menu' id='management_course_reg'>
-            <field name="groups_id" eval="[(4,ref('management_course_manager'))]"/>
+            <field name="groups_id"	eval="[(6,0, [ref('management_course_manager'), ref('management_course_user')])]"/>
         </record>
         
         <record model='ir.ui.menu' id='management_course_add'>
-            <field name="groups_id" eval="[(4,ref('management_course_manager'))]"/>
+            <field name="groups_id"	eval="[(6,0, [ref('management_course_manager'), ref('management_course_user')])]"/>
         </record>
-
     </data>
 
     <data noupdate="0">
@@ -75,6 +73,54 @@
 			<field eval="1" name="perm_read"/>
 			<field eval="1" name="perm_create"/>
 		</record>
+
+		<record id="ir_rule_managemet_course_user" model="ir.rule">
+       		<field name="model_id" ref="model_management_course"/>
+            <field name="name">Management Course Create</field>
+            <field eval="0" name="global"/>
+            <field eval="[(6,0,[ref('management_course_user')])]" name="groups"/>
+            <field eval="1" name="active"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+		<record id="ir_rule_mc_participant_user" model="ir.rule">
+        	<field name="model_id" ref="model_management_course_participant"/>
+            <field name="name">Management Course Create Participant</field>
+            <field eval="0" name="global"/>
+            <field eval="[(6,0,[ref('management_course_user')])]" name="groups"/>
+            <field eval="1" name="active"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+		
+		<record id="ir_rule_mc_requirement_user" model="ir.rule">
+        	<field name="model_id" ref="model_management_course_requirement"/>
+            <field name="name">Management Course Create Requirement</field>
+            <field eval="0" name="global"/>
+            <field eval="[(6,0,[ref('management_course_user')])]" name="groups"/>
+            <field eval="1" name="active"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+		<record id="ir_rule_mc_technical_requirement_user" model="ir.rule">
+       		<field name="model_id" ref="model_management_course_tecreq"/>
+            <field name="name">Management Course Create Technical Requimiment</field>
+            <field eval="0" name="global"/>
+            <field eval="[(6,0,[ref('management_course_user')])]" name="groups"/>
+            <field eval="1" name="active"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+         </record>
     </data>
 
     <data noupdate="0">
@@ -117,5 +163,44 @@
             <field eval="1" name="perm_read"/>
             <field eval="1" name="perm_create"/>
         </record>
+
+		<record id="ir_access_management_course_user" model="ir.model.access">
+        	<field name="model_id" ref="model_management_course"/>
+            <field name="group_id" ref="management_course_user"/>
+            <field name="name">management.course manager</field>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+		<record id="ir_access_mc_participant_user" model="ir.model.access">
+        	<field name="model_id" ref="model_management_course_participant"/>
+            <field name="group_id" ref="management_course_user"/>
+            <field name="name">management.course.participant manager</field>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+         </record>
+ 
+         <record id="ir_access_mc_requirement_user" model="ir.model.access">
+             <field name="model_id" ref="model_management_course_requirement"/>
+             <field name="group_id" ref="management_course_user"/>
+             <field name="name">management.course.requirement manager</field>
+             <field eval="0" name="perm_unlink"/>
+             <field eval="0" name="perm_write"/>
+             <field eval="1" name="perm_read"/>
+             <field eval="0" name="perm_create"/>
+         </record>
+		
+		 <record id="ir_access_mc_tecreq_user" model="ir.model.access">
+         	<field name="model_id" ref="model_management_course_tecreq"/>
+            <field name="group_id" ref="management_course_user"/>
+            <field name="name">management.course.teqrec manager</field>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+         </record>
     </data>
 </openerp>

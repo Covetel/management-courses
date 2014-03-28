@@ -31,6 +31,7 @@
     <story>
       <para>[[ repeatIn(objects, 'o') ]]</para>
       <section>
+         <!--repeatIn(filter( lambda l: l.product_id.type=='service' ,o.invoice_line), 'line')-->
         <para>[[ repeatIn(o.participant_ids, 'participant') ]]</para>
         <para style="cooperativeName">Cooperativa Venezolana de Tecnologías Libres R.S</para>
         <spacer length="30"/>
@@ -41,7 +42,7 @@
         <para style="textContent">A</para>
         <spacer length="25"/>
 
-        <para style="nameInfo">[[ participant.name.name ]]</para>
+        <para style="nameInfo">[[ ((participant.name.name and participant.is_instructor == True))]]</para>
         <spacer length="25"/>
         <para style="textContent">con cédula de identidad [[ participant.cedula_rif ]]</para>
 

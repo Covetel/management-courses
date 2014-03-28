@@ -123,7 +123,6 @@ class partner_participant(osv.osv):
         
 partner_participant()
 
-
 class technical_requirement_course(osv.osv):
     _name = "management.course.tecreq"
     _description = "Technical Requirement Course"

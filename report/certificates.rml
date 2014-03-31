@@ -9,12 +9,6 @@
               bottomMargin="2cm" 
               firstPageTemplate="main">
 	 <pageTemplate id="main">
-        <stylesheet>
-            <paraStyle name='Normal' fontName="DejaVu Sans"/>
-            <paraStyle name="main_footer" fontSize="8.0" alignment="CENTER"/>
-            <paraStyle name="main_header" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-        </stylesheet>
-
         <pageGraphics>
             <setFont name="DejaVu Sans" size="8"/>
             <image x="2.5cm" y="22cm" width="100" height="60.0" >[[ company.logo or removeParentNode('image') ]]</image>
@@ -35,9 +29,9 @@
     </stylesheet>
 
     <story>
-      <para>[[ repeatIn(objects, 'o') ]]</para>
+      <para>[[ repeatIn(objects, 'course') ]]</para>
       <section>
-        <para>[[ repeatIn(o.participant_ids, 'participant') ]]</para>
+		<para> [[ repeatIn(filter( lambda participant : participant.is_instructor == False ,course.participant_ids), 'participant') ]]</para>
         <para style="cooperativeName">Cooperativa Venezolana de Tecnologías Libres R.S</para>
         <spacer length="30"/>
         <para style="textContent">otorga la presente</para>
@@ -54,20 +48,23 @@
         <spacer length="25"/>     
         <para style="textContent">por su valiosa participación y acreditación en el curso</para>
         <spacer length="5"/>     
-        <para style="nameInfo">[[ o.name  ]]</para>
+        <para style="nameInfo">[[ course.name  ]]</para>
         <spacer length="26"/>     
-        <para style="textContent">celebrado del [[ o.start_date ]] al [[ o.end_date ]]</para>
+        <para style="textContent">celebrado del [[ course.start_date ]] al [[ course.end_date ]]</para>
         <spacer length="5"/>     
-        <para style="textContent">con duración de [[ o.hours ]] horas</para>
+        <para style="textContent">con duración de [[ course.hours ]] horas</para>
         <spacer length="20"/>     
         <para style="textContent">[[ time.strftime("%d %B del %Y") ]]</para>
-        <spacer length="120"/>     
-        <illustration width="150" height="25" align="center">
-          <rect x="6.5cm" y="0" width="150" height="1" fill="1" stroke="yes" />
-        </illustration>
-        <para style="textContent" fontName="DejaVu Sans-Bold">[[]]</para>
-        <spacer length="4"/>     
-        <para style="textContent">Cooperativa Venezolana de Tecnologías Libres</para>
+        <spacer length="120"/>
+		<illustration width="150" height="25" align="center">
+        	<rect x="6.5cm" y="0" width="150" height="1" fill="1" stroke="yes" />
+        </illustration>     
+		<section>
+        	<para>[[ repeatIn(filter( lambda participant : participant.is_instructor == True ,course.participant_ids), 'participant') ]]</para>
+        	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.name ]]</para>
+        	<spacer length="4"/>
+    	</section>
+		<para style="textContent">Cooperativa Venezolana de Tecnologías Libres</para>
         <nextPage />
     </section>
   </story>

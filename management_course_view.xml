@@ -4,7 +4,7 @@
 
     <report id="report_certificates_print" model="management.course" 
         name="management.course" rml="management-courses/report/certificates.rml" 
-        string="Certificados" usage="default" header="False" auto="False" />
+        string=" Imprimir Certificados" usage="default" header="False" auto="False" />
 
      <record model="ir.ui.view" id="management_course_form_view">
        <field name="name">management_course_form</field>

@@ -181,7 +181,7 @@
      <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="management_course_menu" name="Management Courses" action="management_course_action"/>
+    <menuitem id="management_course_menu" name="Management Courses" action="management_course_action"  groups="management_course_manager"/>
     <menuitem id="management_course_reg" name="Register" parent="management_course_menu"/>
     <menuitem id="management_course_add" name="Courses" parent="management_course_reg" action="management_course_action"/>
     <menuitem id="management_course_add_req" name="Requirements" parent="management_course_reg" action="management_course_requirement_action"/>

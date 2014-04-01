@@ -5,9 +5,9 @@
         "author": "Covetel R.S",
         "category": "Management Course",
         "description": "OpenERP module allowing you to manage your courses, technical requirements, participants, instructors, etc.",
-        "data": [
-            #"security/management_course_rules.xml",
+        "update_xml": [
             "management_course_view.xml",
+            "security/management_course_rules.xml",
         ],
         "installable": True,
         "active": False,

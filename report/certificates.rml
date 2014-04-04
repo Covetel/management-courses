@@ -32,7 +32,7 @@
       <para>[[ repeatIn(objects, 'course') ]]</para>
       <section>
 		<para> [[ repeatIn(filter( lambda participant : participant.is_instructor == False ,course.participant_ids), 'participant') ]]</para>
-        <para style="cooperativeName">Cooperativa Venezolana de Tecnologías Libres R.S</para>
+        <para style="cooperativeName">[[ company.name ]]</para>
         <spacer length="30"/>
         <para style="textContent">otorga la presente</para>
         <spacer length="10"/>     
@@ -64,7 +64,7 @@
         	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.name ]]</para>
         	<spacer length="4"/>
     	</section>
-		<para style="textContent">Cooperativa Venezolana de Tecnologías Libres</para>
+		<para style="textContent">[[ company.name ]]</para>
 		<spacer length="30"/>
     </section>
   </story>

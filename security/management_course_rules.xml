@@ -5,7 +5,11 @@
 			<field name="name">Management Course / Manager</field>
           	<field name="users" eval="[(4, ref('base.user_root'))]"/>
 		</record>		
-			
+            
+        <record model="res.groups" id="base.group_system">
+            <field name="implied_ids" eval="[(4, ref('management_course_manager'))]"/>
+        </record>
+        
 		<record id="management_course_user" model="res.groups">
         	<field name="name">Management Course / User</field>
         	<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>

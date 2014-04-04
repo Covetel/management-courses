@@ -17,7 +17,7 @@ Install
 -------
 
 + Put the repository in the addons directory for OpenERP
-+ Login on OpenERP nad install the module.
++ Login on OpenERP and install the module.
 
 FAQ
 ----
@@ -34,8 +34,3 @@ FAQ
     + Company: company to which the course will be given.
     + Participants: Participants of the course (one or more participants can be instrcutors, will sign intructor course certificates)
     + Technical requirements: Technical requirements for the course.
-
-Dependencies
--------------
-Perl Dependencies
-Template::Latex

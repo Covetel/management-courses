@@ -12,7 +12,6 @@
         
 		<record id="management_course_user" model="res.groups">
         	<field name="name">Management Course / User</field>
-        	<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     	</record>
 
         <record model='ir.ui.menu' id='management_course_menu'>

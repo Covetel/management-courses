@@ -66,13 +66,14 @@ class course(osv.osv):
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
         "participant_ids": fields.one2many("management.course.participant","course_id","Participant"),
-        "company_ids": fields.many2one("res.partner","name","Company"),
+        "company_ids":fields.many2one('res.partner', 'name', select=True),
         "place": fields.char("Place of course",size=256,required=True),
         "technical_requirement" : fields.one2many("management.course.tecreq","requirement_course","Technical Requirement"),
         "certificate_pdf" : fields.binary("File", readonly=True),
         "state" : fields.selection([('choose', 'choose'),
                                     ('get', 'get')])
     }
+
 
     _defaults = {
         'state' : 'choose',
@@ -112,10 +113,17 @@ class partner_participant(osv.osv):
                 return {'value' : {'cedula_rif' : cedula_rif}}
         else:
             return {'value': {'cedula_rif' : ''}}
+    
+    def _sel_func(self, cr, uid, context=None):
+        obj = self.pool.get('res.partner')
+        ids = obj.search(cr, uid, [('active', '=', False)])
+        res = obj.read(cr, uid, ids, ['name', 'id'], context)
+        res = [(r['id'], r['name']) for r in res]
+        return res
 
 
     _columns = {
-        "name" : fields.many2one("res.partner", "name", "Instructor"),
+        "name" : fields.many2one("res.partner", "name", selection=_sel_func),
         "cedula_rif" : fields.char("Cedula-Rif",size=12,required=True),
         "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
         "is_instructor" : fields.boolean("Instructor"),

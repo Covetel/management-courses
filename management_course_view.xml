@@ -35,20 +35,20 @@
              <separator colspan="2"/>
              <field name="place"/>
              <separator colspan="2"/>
-             <field name="company_ids" string="Company"/>
+             <field name="company_ids" domain="[('is_company', '=', True)]" context="{'company': company_ids}" string="Company"/>
            </group>
            <notebook colspan="4">
              <page string="Participants">
                 <field name="participant_ids">
                   <form>
                     <!--field name="course_id"/>-->
-                    <field name="name"/>
-                    <field name="cedula_rif" context="{'cedula_rif': active_id}"  on_change="onchange_cedula(cedula_rif,context)"/>
+                    <field name="name" domain="[('is_company', '=', False)]" widget="selection"/>
+                    <field name="cedula_rif"  on_change="onchange_cedula(cedula_rif)"/>
                     <field name="is_instructor"/>
                   </form>
                   <tree>
                     <field name="cedula_rif"/>
-                    <field name="name"/>
+                    <field name="name" />
                     <field name="is_instructor"/>
                   </tree>
                 </field>

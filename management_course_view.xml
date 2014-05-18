@@ -35,14 +35,14 @@
              <separator colspan="2"/>
              <field name="place"/>
              <separator colspan="2"/>
-             <field name="company_ids" domain="[('is_company', '=', True)]" context="{'company': company_ids}" string="Company"/>
+             <field name="company_ids" domain="[('is_company', '=', True)]" context="{'company_ids': 'company_ids'}" string="Company"/>
            </group>
            <notebook colspan="4">
              <page string="Participants">
                 <field name="participant_ids">
                   <form>
                     <!--field name="course_id"/>-->
-                    <field name="name" domain="[('is_company', '=', False)]" widget="selection"/>
+                    <field name="name" domain="[('name','in','1'), ('is_company','=',False)]"/>
                     <field name="cedula_rif"  on_change="onchange_cedula(cedula_rif)"/>
                     <field name="is_instructor"/>
                   </form>

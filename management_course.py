@@ -65,7 +65,7 @@ class course(osv.osv):
         "start_date" : fields.date("Start Date"),
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
-        "participant_ids": fields.one2many("management.course.participant","course_id","Participant"),
+        "participant_ids": fields.one2many("res.partner","course_id","Participant"),
         "company_ids":fields.many2one('res.partner', 'name', select=True),
         "place": fields.char("Place of course",size=256,required=True),
         "technical_requirement" : fields.one2many("management.course.tecreq","requirement_course","Technical Requirement"),
@@ -88,32 +88,7 @@ class course(osv.osv):
 course()
 
 class partner_participant(osv.osv):
-    _name = "management.course.participant"
-    _description = "Course Instructor"
-    
-    def _check_inicio_cedula(self,cr,uid,ids,cedula_rif,context=None):
-        if cedula_rif.find("V-")!=-1 or cedula_rif.find("E-")!=-1:
-            return True
-        else:
-            return False
-        
-    def _check_length_cedula(self,cr,uid,ids,cedula_rif,context=None):
-        if len(cedula_rif[2:]) > 8:
-            return False
-        return True
-    
-    def onchange_cedula(self,cr,uid,ids,cedula_rif,context=None):
-        if cedula_rif != False:
-            cedula_rif = cedula_rif[:2] + re.sub("[^0-9]", "", cedula_rif[2:])
-            if self._check_inicio_cedula(cr,uid,ids,cedula_rif,context) == False:
-                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida debe ontener V- O E- al inicio'}}
-            if self._check_length_cedula(cr,uid,ids,cedula_rif,context) == False:
-                return {'value' : {'cedula_rif': ''}, 'warning' : {'title' : 'warning','message' : 'Cedula Invalida debe contener 8 digitos'}}
-            else:
-                return {'value' : {'cedula_rif' : cedula_rif}}
-        else:
-            return {'value': {'cedula_rif' : ''}}
-    
+
     def _sel_func(self, cr, uid, context=None):
         obj = self.pool.get('management.course')
         ids = obj.search(cr, uid, [])
@@ -123,10 +98,12 @@ class partner_participant(osv.osv):
 
 
     _columns = {
-        "name" : fields.many2one("res.partner", "name", domain=[('is_company', '=', False)]),
-        "cedula_rif" : fields.char("Cedula-Rif",size=12,required=True),
+   		_name = "res.partner"
+    	_inherit = "res.partner"
+    	_description = 'Partner'
+
+    _columns = {
         "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
-        "is_instructor" : fields.boolean("Instructor"),
     }
         
 partner_participant()

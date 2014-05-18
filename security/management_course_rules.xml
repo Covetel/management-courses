@@ -41,7 +41,7 @@
 		</record>
         
         <record id="ir_rule_mc_participant_manager" model="ir.rule">
-			<field name="model_id" ref="model_management_course_participant"/>
+			<field name="model_id" ref="model_res_partner"/>
 			<field name="name">Management Course Create Participant</field>
 			<field eval="0" name="global"/>
 			<field eval="[(6,0,[ref('management_course_manager')])]" name="groups"/>
@@ -91,7 +91,7 @@
         </record>
 
 		<record id="ir_rule_mc_participant_user" model="ir.rule">
-        	<field name="model_id" ref="model_management_course_participant"/>
+        	<field name="model_id" ref="model_res_partner"/>
             <field name="name">Management Course Create Participant</field>
             <field eval="0" name="global"/>
             <field eval="[(6,0,[ref('management_course_user')])]" name="groups"/>
@@ -139,9 +139,9 @@
         </record>
 
         <record id="ir_access_mc_participant_m" model="ir.model.access">
-            <field name="model_id" ref="model_management_course_participant"/>
+            <field name="model_id" ref="model_res_partner"/>
             <field name="group_id" ref="management_course_manager"/>
-            <field name="name">management.course.participant manager</field>
+            <field name="name">res.partner</field>
             <field eval="1" name="perm_unlink"/>
             <field eval="1" name="perm_write"/>
             <field eval="1" name="perm_read"/>
@@ -180,9 +180,9 @@
             <field eval="0" name="perm_create"/>
         </record>
 		<record id="ir_access_mc_participant_user" model="ir.model.access">
-        	<field name="model_id" ref="model_management_course_participant"/>
+        	<field name="model_id" ref="model_res_partner"/>
             <field name="group_id" ref="management_course_user"/>
-            <field name="name">management.course.participant manager</field>
+            <field name="name">res.partner</field>
             <field eval="0" name="perm_unlink"/>
             <field eval="0" name="perm_write"/>
             <field eval="1" name="perm_read"/>

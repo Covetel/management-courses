@@ -115,15 +115,15 @@ class partner_participant(osv.osv):
             return {'value': {'cedula_rif' : ''}}
     
     def _sel_func(self, cr, uid, context=None):
-        obj = self.pool.get('res.partner')
-        ids = obj.search(cr, uid, [('active', '=', False)])
+        obj = self.pool.get('management.course')
+        ids = obj.search(cr, uid, [])
         res = obj.read(cr, uid, ids, ['name', 'id'], context)
         res = [(r['id'], r['name']) for r in res]
         return res
 
 
     _columns = {
-        "name" : fields.many2one("res.partner", "name", selection=_sel_func),
+        "name" : fields.many2one("res.partner", "name", domain=[('is_company', '=', False)]),
         "cedula_rif" : fields.char("Cedula-Rif",size=12,required=True),
         "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
         "is_instructor" : fields.boolean("Instructor"),

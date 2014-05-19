@@ -88,22 +88,22 @@ class course(osv.osv):
 course()
 
 class partner_participant(osv.osv):
+    _name = "res.partner"
+    _inherit = "res.partner"
+    _description = 'Partner'
 
-    def _sel_func(self, cr, uid, context=None):
-        obj = self.pool.get('management.course')
-        ids = obj.search(cr, uid, [])
-        res = obj.read(cr, uid, ids, ['name', 'id'], context)
-        res = [(r['id'], r['name']) for r in res]
-        return res
+    def _sel_func(self, cr, uid, context={}):
+        obj = self.pool.get('res.partner')
+        #ids = obj.search(cr, uid, [])
+        #res = obj.read(cr, uid, ids, ['name', 'id'], context)
+        #res = [(r['id'], r['name']) for r in res]
+        _logger.info('company_ids: %s' % str(context.get('company_id', False)))
+        return {}
 
-
-    _columns = {
-   		_name = "res.partner"
-    	_inherit = "res.partner"
-    	_description = 'Partner'
-
+   	
     _columns = {
         "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
+        "participants": fields.many2one("res.partner","name",selection=_sel_func)
     }
         
 partner_participant()

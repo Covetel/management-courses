@@ -31,17 +31,17 @@
              				<separator colspan="2"/>
              				<field name="place"/>
              				<separator colspan="2"/>
-             				<field name="company_ids" domain="[('is_company', '=', True)]" context="{'company_id': company_ids}" string="Company"/>
+             				<field name="company_ids" 
+                            domain="[('is_company', '=', True)]" 
+                            context="{'company_id': company_ids}" string="Company"/>
            				</group>
            				<notebook colspan="4">
              				<page string="Participants">
                 				<field name="participant_ids">
-                  					<form>
+                    				<tree editable="bottom">
+                        				<!--<field name="vat" string="Cedula-Rif"/>
+                        				<field name="name" string="Nombre" />-->
                   						<field name="participants"/>
-                   					</form>
-                    				<tree>
-                        				<field name="vat" string="Cedula-Rif"/>
-                        				<field name="name" string="Nombre" />
                     				</tree>
                 				</field>
              				</page>

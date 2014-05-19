@@ -31,7 +31,7 @@
              				<separator colspan="2"/>
              				<field name="place"/>
              				<separator colspan="2"/>
-             				<field name="company_ids" domain="[('is_company', '=', True)]" context="{'company_ids': 'company_ids'}" string="Company"/>
+             				<field name="company_ids" domain="[('is_company', '=', True)]" context="{'company_id': company_ids}" string="Company"/>
            				</group>
            				<notebook colspan="4">
              				<page string="Participants">

@@ -103,7 +103,7 @@ class partner_participant(osv.osv):
    	
     _columns = {
         "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
-        "participants": fields.many2one("res.partner","name",selection=_sel_func)
+        "participants": fields.many2one("res.partner")
     }
         
 partner_participant()

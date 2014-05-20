@@ -33,29 +33,28 @@
              				<separator colspan="2"/>
              				<field name="company_ids" 
                             domain="[('is_company', '=', True)]" 
-                            context="{'company_id': company_ids}" string="Company"/>
+                            string="Company"/>
                             <separator colspan="2"/>
                             <field name="user_id"/>
            				</group>
            				<notebook colspan="4">
                             <page string="Participants" >
-                                <field colspan="4" name="participant_ids" mode="kanban" widget="many2one_kanban" >
-                                    <kanban>
-                                        <field name="participants" domain="[('is_company','=','False')]" />
-                                        <templates>
-                                            <t t-name="kanban-box">
-                                                <div style="position: relative">
-                                                    <a t-if="! read_only_mode" type="delete" 
-                                                        style="position: absolute; right: 0; padding: 4px; diplay    : inline-block">X</a>
-                                                    <div class="oe_module_vignette">
-                                                        <div class="oe_module_desc">
-                                                            <field name="participants"/>
-                                                        </div>
+                                <field colspan="4" name="participant_ids" widget="many2many_kanban" domain="[('parent_id', '=', company_ids), ('is_company', '=', False)]">
+                                <kanban quick_create="false" create="true" delete="true">
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div style="position: relative">
+                                                <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                                                <div class="oe_module_vignette">
+                                                    <div class="oe_module_desc">
+                                                        <field name="name"/>
                                                     </div>
                                                 </div>
-                                            </t>
-                                        </templates>
-                                    </kanban>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
                                 </field>
                             </page>
              			    <page string="Technical Requirement">
@@ -129,43 +128,6 @@
       		</field>
     	</record>
 
-    	<record model="ir.ui.view" id="res_partner_form_view">
-      		<field name="name">participant.form</field>
-      			<field name="model">res.partner</field>
-      			<field name="type">form</field>
-      			<field name="inherit_id" ref="base.view_partner_form" />
-      			<field name="arch" type="xml">
-         		<field name="name" position="after">
-            		<h1><field name="vat" placeholder="Cedula-Rif" style="width: 100%%" modifiers="{}"/></h1>
-         		</field>
-        		<xpath expr="//form[@string='Contact']/sheet/div/h1/field[@name='name']" position="after">
-            		<h1><field name="vat" placeholder="Cedula-Rif" style="width: 70%%" modifiers="{}"/></h1>
-        		</xpath>
-      		</field>
-    	</record>
-        
-        <record model="ir.ui.view" id="management_course_participant_form_view">
-            <field name="name">management.course.participant.form</field>
-            <field name="model">management.course.participant</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Participants">
-                    <field name="participants" />
-                </form>
-            </field>
-        </record>
-
-    	<record model="ir.ui.view" id="management_course_participant_tree_view">
-      		<field name="name">management.course.participant.tree</field>
-      		<field name="model">management.course.participant</field>
-      		<field name="type">tree</field>
-      		<field name="arch" type="xml">
-        		<tree string="Participants">
-            		<field name="participants" /> 
-        		</tree>
-      		</field>
-    	</record>
-
     	<record model="ir.actions.act_window" id="management_course_action">
      		<field name="name">Course</field>
      		<field name="res_model">management.course</field>
@@ -187,19 +149,11 @@
      		<field name="view_mode">tree,form</field>
    	 	</record>
 
-    	<record model="ir.actions.act_window" id="management_course_participant_action">
-     		<field name="name">Course Participants</field>
-     		<field name="res_model">management.course.participant</field>
-     		<field name="view_type">form</field>
-     		<field name="view_mode">tree,form</field>
-    	</record>
-
     	<menuitem id="management_course_menu" name="Management Courses" action="management_course_action"  groups=""/>
     	<menuitem id="management_course_reg" name="Register" parent="management_course_menu"/>
     	<menuitem id="management_course_add" name="Courses" parent="management_course_reg" action="management_course_action"/>
     	<menuitem id="management_course_add_req" name="Requirements" parent="management_course_reg" action="management_course_requirement_action"/>
     	<menuitem id="management_course_conf" name="Course Data" parent="management_course_menu"/>
-    	<!--<menuitem id="management_course_add_participant" name="Participants" parent="management_course_conf" action="management_course_participant_action"/>-->
     	<menuitem id="management_course_add_tecreq" name="Technical Requirements" parent="management_course_conf" action="management_course_tecreq_action"/>
 
 	</data>

@@ -1,7 +1,7 @@
 {
         "name": "Management - Course",
         "version": "1.0",
-        "depends": ["base"],
+        "depends": ["base", "sale"],
         "author": "Covetel R.S",
         "category": "Management Course",
         "description": "OpenERP module allowing you to manage your courses, technical requirements, participants, instructors, etc.",

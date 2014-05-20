@@ -66,15 +66,14 @@ class course(osv.osv):
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
         "user_id": fields.many2one('res.users', 'Instructor', select=True),
-        "participant_ids": fields.one2many("management.course.participant","course_id","Participant"),
-        "company_ids":fields.many2one('res.partner', 'name', select=True),
+        "participant_ids": fields.many2many("res.partner", "course_partner_rel", "course_id", "name", "Participantes del Curso"),
+        "company_ids":fields.many2one('res.partner', 'Company', select=True),
         "place": fields.char("Place of course",size=256,required=True),
         "technical_requirement" : fields.one2many("management.course.tecreq","requirement_course","Technical Requirement"),
         "certificate_pdf" : fields.binary("File", readonly=True),
         "state" : fields.selection([('choose', 'choose'),
                                     ('get', 'get')])
     }
-
 
     _defaults = {
         'state' : 'choose',
@@ -88,31 +87,11 @@ class course(osv.osv):
         
 course()
         
-class participant(osv.osv):
-    _name ="management.course.participant"
-    _description ="Participant"
-    
-    def _sel_func(self, cr, uid, ids, name, args, context=None):
-        obj = self.pool.get('res.partner')
-        ids = obj.search(cr, uid, [('is_company','=','False')])
-        res = obj.read(cr, uid, ids, ['name', 'id'], context)
-        res = [(r['id'], r['name']) for r in res]
-        return res
-
-   	
-    _columns = {
-        "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
-        "participants": fields.many2one("res.partner","name"),
-    }
-
-participant()
-
 class technical_requirement_course(osv.osv):
     _name = "management.course.tecreq"
     _description = "Technical Requirement Course"
 
     _columns = {
-
         "name" : fields.many2one("management.course.requirement","name","Requirement Course"),
         "requirement_course": fields.many2one("management.course","Requirement Course",required=True,ondelete="cascade"),
     }

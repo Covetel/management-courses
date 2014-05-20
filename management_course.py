@@ -65,7 +65,8 @@ class course(osv.osv):
         "start_date" : fields.date("Start Date"),
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
-        "participant_ids": fields.one2many("res.partner","course_id","Participant"),
+        "user_id": fields.many2one('res.users', 'Instructor', select=True),
+        "participant_ids": fields.one2many("management.course.participant","course_id","Participant"),
         "company_ids":fields.many2one('res.partner', 'name', select=True),
         "place": fields.char("Place of course",size=256,required=True),
         "technical_requirement" : fields.one2many("management.course.tecreq","requirement_course","Technical Requirement"),
@@ -86,27 +87,25 @@ class course(osv.osv):
         return True
         
 course()
-
-class partner_participant(osv.osv):
-    _name = "res.partner"
-    _inherit = "res.partner"
-    _description = 'Partner'
-
-    def _sel_func(self, cr, uid, context={}):
+        
+class participant(osv.osv):
+    _name ="management.course.participant"
+    _description ="Participant"
+    
+    def _sel_func(self, cr, uid, ids, name, args, context=None):
         obj = self.pool.get('res.partner')
-        #ids = obj.search(cr, uid, [])
-        #res = obj.read(cr, uid, ids, ['name', 'id'], context)
-        #res = [(r['id'], r['name']) for r in res]
-        _logger.info('company_ids: %s' % str(context.get('company_id', False)))
-        return {}
+        ids = obj.search(cr, uid, [('is_company','=','False')])
+        res = obj.read(cr, uid, ids, ['name', 'id'], context)
+        res = [(r['id'], r['name']) for r in res]
+        return res
 
    	
     _columns = {
         "course_id" : fields.many2one("management.course","Course",required=True,ondelete="cascade"),
-        "participants": fields.many2one("res.partner")
+        "participants": fields.many2one("res.partner","name"),
     }
-        
-partner_participant()
+
+participant()
 
 class technical_requirement_course(osv.osv):
     _name = "management.course.tecreq"

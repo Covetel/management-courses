@@ -30,7 +30,7 @@
     <story>
       <para>[[ repeatIn(objects, 'course') ]]</para>
       <section>
-		<para> [[ repeatIn(filter( lambda participant : participant.is_instructor == False ,course.participant_ids), 'participant') ]]</para>
+		<para> [[ repeatIn(course.participant_ids, 'participant') ]]</para>
         <para style="cooperativeName">[[ company.name ]]</para>
         <spacer length="30"/>
         <para style="textContent">otorga la presente</para>
@@ -40,10 +40,9 @@
         <para style="textContent">A</para>
         <spacer length="25"/>
 
-        <para style="nameInfo">[[ participant.name.name ]]</para>
+        <para style="nameInfo">[[ participant.name ]]</para>
         <spacer length="25"/>
-        <para style="textContent">con cédula de identidad [[ participant.cedula_rif ]] </para>
-
+        <!--<para style="textContent">con cédula de identidad [[ participant.cedula_rif ]] </para>-->
         <spacer length="25"/>     
         <para style="textContent">por su valiosa participación y acreditación en el curso</para>
         <spacer length="5"/>     
@@ -58,14 +57,15 @@
 		<illustration width="150" height="25" align="center">
         	<rect x="6.5cm" y="0" width="150" height="0.01" fill="1" stroke="no" />
         </illustration>     
-	<section>
-        	<para>[[ repeatIn(filter( lambda participant : participant.is_instructor == True ,course.participant_ids), 'participant') ]]</para>
+	    <section>
+            <!--<para>[[ repeatIn(filter( lambda participant : participant.is_instructor == True ,course.participant_ids), 'participant') ]]</para>
         	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.name or removeParentNode('para') ]]</para>
         	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.identification_id or removeParentNode('para')  ]]</para>
-        	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.department_id or removeParentNode('para') ]]</para>
+        	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.department_id or removeParentNode('para') ]]</para>-->
+            <para style="textContent" fontName="DejaVu Sans-Bold">[[ course.instructor.name ]] </para>
         	<spacer length="4"/>
     	</section>
-	<para style="textContent">[[ company.name ]]</para>
+	    <para style="textContent">[[ company.name ]]</para>
         <nextFrame />
     </section>
   </story>

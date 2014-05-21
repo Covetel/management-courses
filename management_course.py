@@ -65,7 +65,7 @@ class course(osv.osv):
         "start_date" : fields.date("Start Date"),
         "end_date":fields.date("End Date"),
         "hours" : fields.float("Hours",digits=(6,2),help="Duration"),
-        "user_id": fields.many2one('res.users', 'Instructor', select=True),
+        "instructor":fields.many2one('res.partner', 'Instructor'),
         "participant_ids": fields.many2many("res.partner", "course_partner_rel", "course_id", "name", "Participantes del Curso"),
         "company_ids":fields.many2one('res.partner', 'Company', select=True),
         "place": fields.char("Place of course",size=256,required=True),

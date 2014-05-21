@@ -35,7 +35,7 @@
                             domain="[('is_company', '=', True)]" 
                             string="Company"/>
                             <separator colspan="2"/>
-                            <field name="user_id"/>
+                            <field name="instructor" domain="[('is_company', '=', False), ('parent_id', '=', 1)]" />
            				</group>
            				<notebook colspan="4">
                             <page string="Participants" >

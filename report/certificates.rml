@@ -41,6 +41,7 @@
         <spacer length="25"/>
 
         <para style="nameInfo">[[ participant.name ]]</para>
+        <!--<para style="nameInfo">[[ participant.id ]]</para>-->
         <spacer length="25"/>
         <!--<para style="textContent">con cédula de identidad [[ participant.cedula_rif ]] </para>-->
         <spacer length="25"/>     
@@ -63,10 +64,14 @@
         	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.identification_id or removeParentNode('para')  ]]</para>
         	<para style="textContent" fontName="DejaVu Sans-Bold">[[ participant.name.department_id or removeParentNode('para') ]]</para>-->
             <para style="textContent" fontName="DejaVu Sans-Bold">[[ course.instructor.name ]] </para>
+            <!--<para style="textContent" fontName="DejaVu Sans-Bold">[[ course.participant_ids[get_last_participant(course.participant_ids)].name ]] </para>-->
         	<spacer length="4"/>
+            <para style="textContent">[[ company.name ]]</para>
     	</section>
-	    <para style="textContent">[[ company.name ]]</para>
-        <nextFrame />
+            <nextPage>[[ (participant.id ==  course.participant_ids[get_last_participant(course.participant_ids)].id ) and removeParentNode('nextPage') ]]</nextPage>
+        <section>
+        </section>
     </section>
+   <!--<nextPage/>-->
   </story>
 </document>
